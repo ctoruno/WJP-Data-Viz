@@ -68,6 +68,18 @@ wjp_barsCountries <- function(
       mutate(highlighted = "Highlighted")
   }
   
+  # Apply percentage formating to value labels?
+  if (percentage_out == T) {
+    data2plot <- data2plot %>%
+      mutate(labels = paste0(format(round(value2plot*100, labelDec),
+                                    nsmall = labelDec),
+                             "%"))
+  } else {
+    data2plot <- data2plot %>%
+      mutate(labels = format(round(value2plot, labelDec),
+                             nsmall = labelDec))
+  }
+  
   # Defining color equivalencies
   if (is.character(displayColors[2])) {
     colorEq <- c("Highlighted"  = displayColors[1],
@@ -93,8 +105,7 @@ wjp_barsCountries <- function(
              width   = 0.7,
              alpha   = 0.9) +
     geom_text(aes(y     = value2plot + labelDis,
-                  label = format(round(value2plot, labelDec),
-                                 nsmall = labelDec),
+                  label = labels,
                   color = highlighted),
               family    = "Lato Full",
               fontface  = "bold.italic") +

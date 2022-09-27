@@ -70,6 +70,15 @@ wjp_lineINDICATOR <- function(
     group_by(year, target) %>%
     summarise(value2plot = round(mean(target_value, na.rm = T), 3))
   
+  # Apply percentage formating to value labels?
+  if (percentage_out == T) {
+    data2plot <- data2plot %>%
+      mutate(labels = paste0(round(value2plot*100, 0), "%"))
+  } else {
+    data2plot <- data2plot %>%
+      mutate(labels = round(value2plot, 0))
+  }
+  
   # Plotting results
   p <- ggplot(data2plot, 
               aes(y     = value2plot, 
@@ -82,7 +91,7 @@ wjp_lineINDICATOR <- function(
     # Applying ggrepel for a better visualization of plots
     geom_text_repel(mapping = aes(y     = value2plot, 
                                   x     = year, 
-                                  label = paste0(round(value2plot*100, 0), "%")),
+                                  label = labels),
                     family      = "Lato Full", 
                     fontface    = "bold",
                     show.legend = F,
