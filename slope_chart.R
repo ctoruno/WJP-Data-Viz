@@ -1,6 +1,6 @@
 slope_plot <- function(data2plot, group_variable, label_title, label_subtitle, label_caption) {
   
-  plot <<- ggplot(data = data2plot, aes(x = year, y = value2plot, group = {{group_variable}})) +
+  plot <- ggplot(data = data2plot, aes(x = year, y = value2plot, group = {{group_variable}})) +
     geom_line(aes(color = allcolors, alpha = 1), size = 2) +
     geom_point(aes(color = allcolors, alpha = 1), size = 2) +
     geom_text_repel(data = data2plot %>% filter(year == "Two Years Before Covid"), 
