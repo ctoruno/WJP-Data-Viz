@@ -1,10 +1,10 @@
 slope_plot <- function(data2plot, group_variable, label_title, label_subtitle, label_caption) {
   
-  plot <- ggplot(data = data2plot, aes(x = year, y = value2plot, group = {{group_variable}})) +
+  plot <<- ggplot(data = data2plot, aes(x = year, y = value2plot, group = {{group_variable}})) +
     geom_line(aes(color = allcolors, alpha = 1), size = 2) +
     geom_point(aes(color = allcolors, alpha = 1), size = 2) +
     geom_text_repel(data = data2plot %>% filter(year == "Two Years Before Covid"), 
-                    aes(label = paste0(country, " - ", value2plot, "%")) , 
+                    aes(label = paste0(country, " - ", value2plot, "%")), 
                     hjust = 1.35, 
                     fontface = "bold", 
                     size = 3,
@@ -46,7 +46,6 @@ slope_plot <- function(data2plot, group_variable, label_title, label_subtitle, l
     theme(plot.subtitle = element_text(family = "Lato Full", size = 14, face = "italic"),
           plot.title = element_text(family = "Lato Black", size = 16, color = "Black"),
           plot.title.position = "plot",
-          plot.caption = element_text(family = "Lato Full", size = 10, hjust = 0.5))
-  #  Labelling as desired
+          plot.caption = element_text(family = "Lato Full", size = 10, hjust = 0.5)) #  Labelling as desired
   return(plot)
 }
