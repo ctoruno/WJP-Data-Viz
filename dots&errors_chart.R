@@ -34,8 +34,9 @@ wjp_dotsDEMOGRAPHICS <- function(
     title,              # Plot Title
     subtitle,           # Plot Subtitle
     ytitle,             # Plot Title
-    colorSet            # Vector of length 2. First color is the dot + errorBar color.
+    colorSet,           # Vector of length 2. First color is the dot + errorBar color.
                         # Second color is the panel strip color.
+    percentage_out = T  # The target variable is in a % scale?
 )
 {
   
@@ -92,7 +93,14 @@ wjp_dotsDEMOGRAPHICS <- function(
       subtitle = subtitle,
       y        = ytitle,
       x        = "Group"
-    ) +
+    )
+  
+  if (percentage_out == T) {
+    plot <- plot +
+      scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+  }
+  
+  plot <- plot +
     WJP_theme() +
     theme(
       panel.grid.major.x = element_blank(),
