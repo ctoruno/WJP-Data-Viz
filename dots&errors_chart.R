@@ -22,103 +22,86 @@
 ##
 ## +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-wjp_dotsCOMPARISON <- function(
-    data,
-    country,
-    overtime = F,
-    year = NULL,
-    target_indicator = NULL
+wjp_dotsDEMOGRAPHICS <- function(
+    data,               # Data Frame to use, it MUST be the merge.dta or a subset of it.
+                        # A data frame with the same structure than merge.dta also works.
+                        # For example, df <- merge %>% mutate(new_var = argument)
+    
+    country,            # For which country is this plot for?
+    year,               # Values are going to be subset for this specific year
+    target_variable,    # Variables to display in the Y-axis
+    title,              # Plot Title
+    subtitle,           # Plot Subtitle
+    ytitle,             # Plot Title
+    colorSet            # Vector of length 2. First color is the dot + errorBar color.
+                        # Second color is the panel strip color.
 )
 {
   
-  if (overtime == T) {
-    target_indicator <- "year"
-  }
+  # Defining data to plot
+  data2plot <- 
+    map_dfr(c("skin_color", "gender", "income_aux"), 
+            function(target_var){
+              data %>%
+                filter(country == country & year == year) %>%
+                select(all_of(target_var), all_of(var_name)) %>%
+                rename(target = 1,
+                       index  = 2) %>%
+                mutate(target = as.character(target)) %>%
+                group_by(target) %>%
+                summarise(value_mean = mean(value, na.rm = T),
+                          value_sd   = sd(value, na.rm = T),
+                          n          = n(),) %>%
+                mutate(
+                  category = case_when(
+                    target_var == "skin_color" ~ "Skin Color",
+                    target_var == "gender"     ~ "Gender",
+                    target_var == "income_aux" ~ "Income"
+                  ),
+                  target = case_when(
+                    target == "Dark Brown"  ~ "Dark\nBrown",
+                    target == "Light Brown" ~ "Light\nBrown",
+                    target == "1"           ~ "1\nLow",
+                    target == "5"           ~ "5\nHigh",
+                    TRUE ~ target
+                  ),
+                  value_se = value_sd/sqrt(n),
+                  value_ci = value_se * qt((1-0.05)/2 + .5, n-1)
+                )
+            }) %>%
+    filter(!is.na(target))
   
-  # Defining data to plot: Subsetting data
-  data2plot <- data %>%
-    filter(country %in% countries) %>%
-    {if (overtime == F) filter(year == year) else .} %>%
-    select(all_of(target_indicator))
-  
-  if (overtime == F) {
-    data2plot <- data2plot %>%
-      pivot_longer(
-        cols           = everything(), 
-        names_to       = "category", 
-        values_to      = "answer"
-      )
-  }
-    
-
-    mutate(
-      question = if_else(str_detect(category, "q\\d{1}a"),
-                         "Influencing the hiring\nof friends/relatives",
-                         "Influencing the award of\ncontracts to friends/relatives"),
-      answer   = case_when(
-        answer == 99 ~ NA_real_,
-        answer < 3   ~ 1,
-        answer > 2   ~ 0
-      ),
-      group   = case_when(
-        str_detect(category, "3") ~ "Public Officials",
-        str_detect(category, "4") ~ "Private Sector Employees",
-        str_detect(category, "5") ~ "Elected Politicians"
-      )
-    ) %>%
-    select(!category) %>%
-    group_by(group, question) %>%
-    summarise(value_dot = mean(answer, na.rm = T),
-              value_sd  = sd(answer, na.rm = T),
-              n         = n()) %>%
-    mutate(value_se = value_sd/sqrt(n),
-           value_ci = value_se * qt((1-0.05)/2 + .5, n-1))
-  
-  # Making the ggplot
-  plot <- 
-    ggplot(data = data2plot, 
-           aes(x     = question, 
-               y     = value_dot, 
-               color = group)) +
-    geom_point(size = 3) +
-    geom_errorbar(aes(ymin = value_dot-value_ci, 
-                      ymax = value_dot+value_ci), 
-                  width    = 0.25, 
+  # Creating ggplot
+  plot <- ggplot(data2plot,
+                 aes(x = target,
+                     y = value_mean)) +
+    facet_wrap(~category,
+               scales = "free_x") +
+    geom_errorbar(aes(ymin = value_mean - value_ci,
+                      ymax = value_mean + value_ci),
+                  width    = 0.2, 
+                  colour   = colorSet[1], 
                   alpha    = 0.9, 
-                  size     = 1,
-                  show.legend = F) +
-    labs(title    = paste("Abuse of Power for Economic and Social Gains"),
-         subtitle = paste("Percentage of people that believe that the following behaviors", 
-                          "happen frequently\nin each of these groups of individuals"),
-         y        = "Percentage of respondents (%)"
+                  size     = 1.25) +
+    geom_point(color = colorSet[1],
+               size  = 2) +
+    labs(
+      title    = title,
+      subtitle = subtitle,
+      y        = ytitle,
+      x        = "Group"
     ) +
-    # scale_color_manual(values = c("#33658A", "#DC9E82", "#86BBD8")) +
-    scale_color_manual(values  = c("#33658A", "#DC9E82", "#86BBD8"),
-                       labels  = paste("<span style='color:",
-                                       c("#33658A", "#DC9E82", "#86BBD8"),
-                                       "'>",
-                                       c("Elected Politicians", 
-                                         "Private Sector Employees", 
-                                         "Public Officials"),
-                                       "</span>")) +
-    scale_y_continuous(labels = scales::percent_format(scale = 100)) +
-    coord_flip() +
     WJP_theme() +
-    theme(legend.position    = "top",
-          legend.key         = element_rect(fill = "white"),
-          legend.text        = element_markdown(size   = 8, 
-                                                family = "Lato Full", 
-                                                face   = "bold"),
-          panel.grid.major.x = element_blank(),
-          # axis.title.x       = element_blank(),
-          axis.ticks.x       = element_line(),
-          axis.title.y       = element_blank(), 
-          axis.line.y.left   = element_line(size = 0.5,
-                                            colour   = "grey55",
-                                            linetype = "solid"),
-          axis.line.x.bottom = element_line(size = 0.5,
-                                            colour   = "grey55",
-                                            linetype = "solid")
+    theme(
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(size     = 0.5,
+                                        colour   = "grey93",
+                                        linetype = "solid"),
+      strip.background   = element_rect(fill     = colorSet[2]),
+      strip.text         = element_text(family   = "Lato Full",
+                                        face     = "bold",
+                                        size     = 13,
+                                        color    = "white")
     )
-  
 }
+
