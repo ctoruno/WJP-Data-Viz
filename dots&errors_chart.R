@@ -43,12 +43,12 @@ wjp_dotsDEMOGRAPHICS <- function(
   data2plot <- 
     map_dfr(groups, 
             function(group_var){
-              data %>%
+             data %>%
                 filter(country == country & year == year) %>%
                 select(all_of(target_variable), 
                        all_of(group_var)) %>%
-                rename(target = 1,
-                       value  = 2) %>%
+                rename(value = 1,
+                       target  = 2) %>%
                 mutate(target = as.character(target)) %>%
                 group_by(target) %>%
                 summarise(value_mean = mean(value, na.rm = T),
