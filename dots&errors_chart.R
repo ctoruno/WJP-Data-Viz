@@ -48,7 +48,7 @@ wjp_dotsDEMOGRAPHICS <- function(
                 select(all_of(target_variable), 
                        all_of(group_var)) %>%
                 rename(target = 1,
-                       index  = 2) %>%
+                       value  = 2) %>%
                 mutate(target = as.character(target)) %>%
                 group_by(target) %>%
                 summarise(value_mean = mean(value, na.rm = T),
