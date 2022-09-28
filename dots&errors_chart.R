@@ -30,6 +30,7 @@ wjp_dotsDEMOGRAPHICS <- function(
     country,            # For which country is this plot for?
     year,               # Values are going to be subset for this specific year
     target_variable,    # Variables to display in the Y-axis
+    groups,             # Groups to 
     title,              # Plot Title
     subtitle,           # Plot Subtitle
     ytitle,             # Plot Title
@@ -40,23 +41,24 @@ wjp_dotsDEMOGRAPHICS <- function(
   
   # Defining data to plot
   data2plot <- 
-    map_dfr(c("skin_color", "gender", "income_aux"), 
-            function(target_var){
+    map_dfr(groups, 
+            function(group_var){
               data %>%
                 filter(country == country & year == year) %>%
-                select(all_of(target_var), all_of(var_name)) %>%
+                select(all_of(target_variable), 
+                       all_of(group_var)) %>%
                 rename(target = 1,
                        index  = 2) %>%
                 mutate(target = as.character(target)) %>%
                 group_by(target) %>%
                 summarise(value_mean = mean(value, na.rm = T),
                           value_sd   = sd(value, na.rm = T),
-                          n          = n(),) %>%
+                          n          = n()) %>%
                 mutate(
                   category = case_when(
-                    target_var == "skin_color" ~ "Skin Color",
-                    target_var == "gender"     ~ "Gender",
-                    target_var == "income_aux" ~ "Income"
+                    group_var == "skin_color" ~ "Skin Color",
+                    group_var == "gender"     ~ "Gender",
+                    group_var == "income_aux" ~ "Income"
                   ),
                   target = case_when(
                     target == "Dark Brown"  ~ "Dark\nBrown",
