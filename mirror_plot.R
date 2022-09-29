@@ -1,6 +1,6 @@
 mirror_plot <- function(data2plot, label_title, comparison, label_value_left, label_value_right) { 
   
-  p1 <- ggplot(data2plot)+ aes(x = Value, y = target, fill = {{comparison}})+
+  p1 <- ggplot(data2plot)+ aes(x = Value, y = reorder(target, -Value), fill = {{comparison}})+
     facet_wrap(vars({{comparison}}), scales = "free_x") + 
     geom_bar(position="stack", stat="identity", width=0.6, color = c("white"))+
     scale_fill_manual(values = c("#949C81","#DC8A5E"))+
