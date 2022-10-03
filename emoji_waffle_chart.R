@@ -17,7 +17,7 @@ emoji_waffle_chart <- function(data2plot, title_label, subtitle_label, caption_l
           legend.text = element_text(family="Lato Regular", size=6, hjust = 0.5, color="Black"),
           legend.box.spacing = unit(0, "pt"),
           legend.margin=margin(0,0,0,0),
-          legend.box.margin=margin(-50,0,0,0)) 
+          legend.box.margin=margin(-75,0,0,0)) 
           
   }
 
