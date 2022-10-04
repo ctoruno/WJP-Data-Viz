@@ -111,7 +111,7 @@ wjp_divBarsVARIABLES <- function(
                            NA_character_)
     )
   
-  plot <- ggplot(data = data2plot, 
+  ggplot(data = data2plot, 
                  aes(x = reorder(category, ordering), 
                      y = perc4plot, 
                      fill = factor(answer,
