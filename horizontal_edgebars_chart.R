@@ -13,7 +13,7 @@ horizontal_edgebars_chart <- function(data2plot, title_label, subtitle_label, ma
                        limits = c(0, 1),
                        breaks = seq(0, 1, by = 0.2),
                        expand=c(0, 0)) +
-    scale_color_manual(values = c("color" = "white", "no_color" = "#33658A")) +
+    scale_color_manual(values = c("color" = "white", "no_color" = main_color)) +
     theme_minimal()+
     theme(legend.position="none",
           legend.text = element_text(family = "Lato Light", size = 4),
