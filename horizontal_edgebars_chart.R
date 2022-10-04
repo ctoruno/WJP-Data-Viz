@@ -1,6 +1,6 @@
 horizontal_edgebars_chart <- function(data2plot, title_label, subtitle_label, main_color, labelGeom) {
   
-  plot <- ggplot(data2plot)+ aes(x = target_value, y = target, fill = pos) +
+  plot <- ggplot(data2plot)+ aes(x = target_value, y = order(target, -order_value), fill = pos) +
     geom_bar(position="stack", stat="identity", width=0.60, color = main_color) +
     scale_fill_manual(values = c("white", main_color)) +
     labs(title = title_label,
