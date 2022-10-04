@@ -56,7 +56,7 @@ wjp_divBarsVARIABLES <- function(
   
   # Preparing data for plot: Subsetting and labelling
   data2plot <- data %>%
-    filter(country == country.c & year == year.y) %>%
+    filter(country == country & year == year) %>%
     select(all_of(target_variables)) %>%
     mutate(
       across(everything(),
@@ -152,6 +152,10 @@ wjp_divBarsVARIABLES <- function(
     theme(axis.line.x.bottom = element_line(size     = 1.2, 
                                             color    = "black", 
                                             linetype = "solid"),
+          axis.text.y        = element_text(size   = 11,
+                                            family = "Lato Full",
+                                            face   = "bold"),
+          axis.title.y       = element_blank(), 
           legend.position    = "top",
           legend.spacing.x   = unit(0.25, "cm"),
           legend.text        = element_markdown(size   = 7, 
