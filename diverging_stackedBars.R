@@ -44,7 +44,7 @@ wjp_divBarsVARIABLES <- function(
                         # IMPORTANT: Order values from the most extreme to the less extreme value
     title,              # Plot Title
     subtitle,           # Plot Subtitle
-    ytitle,             # Plot Title
+    xtitle,             # X-Axis Title
     colorSet,           # Vector of length 4.
     percentage_out = T, # Logical. The target variable is in a % scale?
     transformation = T, # Logical. Do target variables need a transformation?
