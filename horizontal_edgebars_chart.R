@@ -7,13 +7,13 @@ horizontal_edgebars_chart <- function(data2plot, title_label, subtitle_label, ma
          subtitle = subtitle_label,
          x = "",
          y = "")  +
-    geom_text(aes(label = label_value, colour = labelGeom, x = 0.5), check_overlap = T, color = main_color, size = 2.5) + 
+    geom_text(aes(label = label_value, color = labelGeom, x = 0.5), check_overlap = T, color = main_color, size = 2.5) + 
     coord_cartesian(xlim = c(0, 1), clip = "off") +
     scale_x_continuous(labels = scales::percent_format(accuracy = 1),
                        limits = c(0, 1),
                        breaks = seq(0, 1, by = 0.2),
                        expand=c(0, 0)) +
-    scale_colour_manual(values = c("color" = "#33658A", "no_color" = "white")) +
+    scale_color_manual(values = c("color" = "#33658A", "no_color" = "white")) +
     theme_minimal()+
     theme(legend.position="none",
           legend.text = element_text(family = "Lato Light", size = 4),
