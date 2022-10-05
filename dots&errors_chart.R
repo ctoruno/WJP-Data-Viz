@@ -37,7 +37,7 @@ wjp_dotsDEMOGRAPHICS <- function(
     colorSet,           # Vector of length 2. First color is the dot + errorBar color.
                         # Second color is the panel strip color.
     percentage_out = T, # The target variable is in a % scale?
-    ncols          = 3  # Number of columns
+    ncol = 3  # Number of columns
 )
 {
   
@@ -81,7 +81,7 @@ wjp_dotsDEMOGRAPHICS <- function(
                      y = value_mean)) +
     facet_wrap(~category,
                scales = "free_x",
-               ncols  = ncols) +
+               ncol   = ncol) +
     geom_errorbar(aes(ymin = value_mean - value_ci,
                       ymax = value_mean + value_ci),
                   width    = 0.2, 
