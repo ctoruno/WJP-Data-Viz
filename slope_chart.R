@@ -17,7 +17,7 @@ slope_plot <- function(data2plot, group_variable, label_title, label_subtitle, l
                     size = 3,
                     nudge_x = .25, 
                     direction = "y") +
-    scale_color_manual(values = c(mainColor, "#E1E0DE")) +
+    scale_color_manual(values = c("#E1E0DE", mainColor)) +
     #  Labelling as desired
     labs(
       title = {{label_title}},
