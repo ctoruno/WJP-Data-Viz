@@ -1,4 +1,4 @@
-slope_plot <- function(data2plot, group_variable, label_title, label_subtitle, label_caption) {
+slope_plot <- function(data2plot, group_variable, label_title, label_subtitle, label_caption, mainColor) {
   
   plot <- ggplot(data = data2plot, aes(x = year, y = value2plot, group = {{group_variable}})) +
     geom_line(aes(color = allcolors, alpha = 1), size = 2) +
@@ -17,7 +17,7 @@ slope_plot <- function(data2plot, group_variable, label_title, label_subtitle, l
                     size = 3,
                     nudge_x = .25, 
                     direction = "y") +
-    scale_color_manual(values = c("#33658A","#E1E0DE")) +
+    scale_color_manual(values = c(mainColor,"#E1E0DE")) +
     #  Labelling as desired
     labs(
       title = {{label_title}},
