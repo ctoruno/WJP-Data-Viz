@@ -36,7 +36,8 @@ wjp_dotsDEMOGRAPHICS <- function(
     ytitle,             # Plot Title
     colorSet,           # Vector of length 2. First color is the dot + errorBar color.
                         # Second color is the panel strip color.
-    percentage_out = T  # The target variable is in a % scale?
+    percentage_out = T, # The target variable is in a % scale?
+    ncol = 3  # Number of columns
 )
 {
   
@@ -79,7 +80,8 @@ wjp_dotsDEMOGRAPHICS <- function(
                  aes(x = target,
                      y = value_mean)) +
     facet_wrap(~category,
-               scales = "free_x") +
+               scales = "free_x",
+               ncol   = ncol) +
     geom_errorbar(aes(ymin = value_mean - value_ci,
                       ymax = value_mean + value_ci),
                   width    = 0.2, 
@@ -235,7 +237,7 @@ wjp_dotsGROUPS <- function(
       axis.title.y       = element_blank(),
       axis.text.y        = element_text(family   = "Lato Full",
                                         face     = "bold",
-                                        size     = 13,
+                                        size     = 11,
                                         color    = "black"), 
       panel.grid.major.x = element_blank(),
       legend.text        = element_markdown(size   = 9, 

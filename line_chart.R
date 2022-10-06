@@ -85,8 +85,9 @@ wjp_lineINDICATOR <- function(
                   x     = year, 
                   color = target)) +
     geom_line(show.legend   = F,
-              alpha         = 0.35) + 
-    geom_point(size         = 1.75) + 
+              size          = 1.85,
+              alpha         = 0.90) + 
+    geom_point(size         = 2.50) + 
     
     # Applying ggrepel for a better visualization of plots
     geom_text_repel(mapping = aes(y     = value2plot, 
@@ -94,6 +95,7 @@ wjp_lineINDICATOR <- function(
                                   label = labels),
                     family      = "Lato Full", 
                     fontface    = "bold",
+                    size        = 5,
                     show.legend = F,
                     
                     # Additional options from ggrepel package:
