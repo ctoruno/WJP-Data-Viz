@@ -1,4 +1,11 @@
-wjp_barsCategories <- function(data2plot, title_label, subtitle_label, ylab_label, main_color) {
+wjp_barsCategories <- function(data2plot, 
+                               title_label, 
+                               subtitle_label, 
+                               ylab_label, 
+                               main_color, 
+                               title_size = 12, 
+                               subtitle_size = 10, 
+                               ylab_size = 8) {
   
   plot <- data2plot %>%
   ggplot(aes(x   = reorder(category, -value),
@@ -27,7 +34,29 @@ wjp_barsCategories <- function(data2plot, title_label, subtitle_label, ylab_labe
                                          color    = "black", 
                                          linetype = "solid"),
       axis.title.y        = element_blank(), 
-      panel.grid.major    = element_blank())
+      panel.grid.major    = element_blank(),
+      plot.title = element_text(family="Lato Black", 
+                                size = title_size, 
+                                color = "Black"),
+      plot.subtitle=element_text(family = "Lato Full", 
+                                 face   = "italic",
+                                 size   = subtitle_size, 
+                                 vjust  = 0, 
+                                 color  = "Black", 
+                                 margin = unit(c(0,0,0.5,0), "cm")),
+      axis.text.y        = element_text(family = "Lato Full",
+                                        face     = "plain",
+                                        size     = ylab_size,
+                                        color    = "Black"),
+      axis.title.x = element_text(family = "Lato Full",
+                                 face   = "bold",
+                                 size   = ylab_size,
+                                 color  = "Black"),
+      axis.text.x        = element_text(family = "Lato Full",
+                                        face     = "plain",
+                                        size     = ylab_size,
+                                        color    = "Black"))
+  
       
       return(plot)
   
