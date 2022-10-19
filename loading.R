@@ -7,3 +7,4 @@ source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/dots%26error
 source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/horizontal_edgebars_chart.R")
 source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/emoji_waffle_chart.R")
 source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/logit_plot_3panels.R")
+source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/focus_correlations_bars.R")
