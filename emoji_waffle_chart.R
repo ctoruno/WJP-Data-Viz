@@ -10,7 +10,7 @@ emoji_waffle_chart <- function(data2plot, title_label, subtitle_label, caption_l
          title = title_label) +
     labs(subtitle = subtitle_label,
          caption = caption_label) +
-    theme(plot.subtitle= element_text(family = "Lato Light Italic", size=8, hjust = 0.5,color="Black", margin = unit(c(0,0,-0.5,0), "cm")),
+    theme(plot.subtitle= element_text(family = "Lato Light Italic", size=8, hjust = 0.5,color="Black", margin = unit(c(0.5,0,0.25,0), "cm")),
           plot.title= element_text(family="Lato Black",size=10, hjust = 0.5, color="Black", margin = unit(c(0,0,0,0), "cm")),
           plot.caption = element_text(family="Lato Regular", size=6, hjust = 0.5, color="Black"),
           plot.title.position = "plot",
