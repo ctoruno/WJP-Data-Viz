@@ -8,3 +8,5 @@ source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/horizontal_e
 source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/emoji_waffle_chart.R")
 source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/logit_plot_3panels.R")
 source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/focus_correlations_bars.R")
+source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/wjp_barsCategories.R")
+source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/logit_plot_panel.R")
