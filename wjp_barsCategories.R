@@ -19,7 +19,8 @@ wjp_barsCategories <- function(data2plot,
                                  "%")),
               color     = main_color,
               family    = "Lato Full",
-              fontface  = "bold.italic") +
+              fontface  = "bold.italic",
+              size      = 2) +
     labs(title    = paste0(title_label),
          subtitle = paste0(subtitle_label),
          y        = ylab_label) +
