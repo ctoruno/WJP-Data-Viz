@@ -13,7 +13,7 @@ wjp_barsCategories <- function(data2plot,
     geom_bar(fill  = main_color,
              stat  = "identity",
              width = 0.7) +
-    geom_text(aes(y     = value + 0.075,
+    geom_text(aes(y     = value + 0.1,
                   label = paste0(format(round(value*100, 1),
                                         nsmall = 1),
                                  "%")),
