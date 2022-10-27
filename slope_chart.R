@@ -26,7 +26,7 @@ slope_plot <- function(data2plot,
                     size = size_geom,
                     nudge_x = .25, 
                     direction = "y") +
-    scale_color_manual(values = c("#E1E0DE", mainColor)) +
+    scale_color_manual(values = c(mainColor,"#E1E0DE")) +
     #  Labelling as desired
     labs(
       title = {{label_title}},
@@ -56,7 +56,8 @@ slope_plot <- function(data2plot,
     theme(axis.ticks       = element_blank()) + 
     theme(plot.subtitle = element_text(family = "Lato Full", 
                                        size = size_subtitle, 
-                                       face = "italic"),
+                                       face = "italic",
+                                       margin = unit(c(0,0,0.5,0), "cm")),
           plot.title = element_text(family = "Lato Black", 
                                     size = size_title, 
                                     color = "Black"),
