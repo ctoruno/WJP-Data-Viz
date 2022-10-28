@@ -13,7 +13,7 @@ logit_plot_panel <- function(data2plot, title_label, subtitle_label, caption_lab
     scale_y_continuous(labels = scales::percent_format(accuracy = 1),
                        limits = c(-0.8, 0.8),
                        breaks = seq(-0.8, 0.8, by = 0.2),
-                       expand=c(0, 0))+
+                       expand=c(0, 0), position = "right")+
     scale_color_manual(values = main_colors)+
     theme_minimal()+
     coord_flip() +
