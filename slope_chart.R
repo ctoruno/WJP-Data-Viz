@@ -14,17 +14,17 @@ slope_plot <- function(data2plot,
     geom_point(aes(color = allcolors, alpha = 1), size = 2) +
     geom_text_repel(data = data2plot %>% filter(year == "Two Years Before Covid"), 
                     aes(label = paste0(country, " - ", value2plot, "%")), 
-                    hjust = 1.35, 
+                    hjust = 1, 
                     fontface = "bold", 
                     size = size_geom,
-                    nudge_x = -.25, 
-                    direction = "y") +
+                    nudge_x = -.025, 
+                    direction = "y")+
     geom_text_repel(data = data2plot %>% filter(year == "Two Years After Covid"), 
                     aes(label = paste0(country, " - ", value2plot, "%")) , 
-                    hjust = -.35, 
+                    hjust = 0, 
                     fontface = "bold", 
                     size = size_geom,
-                    nudge_x = .25, 
+                    nudge_x = .025, 
                     direction = "y") +
     scale_color_manual(values = c(mainColor,"#E1E0DE")) +
     #  Labelling as desired
