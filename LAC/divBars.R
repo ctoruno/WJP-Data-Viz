@@ -17,18 +17,17 @@ LAC_divBars <- function(
     target_var,       # Variable that will supply the values to plot
     grouping_var,     # Variable containing the grouping values (Y-Axis Labels)
     diverging_var,    # Variable that contains the values to diverge,
-    negative_value,   # Negative value showwed in the diverging_var
-    colors,           # Colors to apply to diverging bar
+    negative_value,   # Negative value showed in the diverging_var
+    colors,           # Colors to apply to line
     labels_var        # Variable containing the labels to show in the plot
 ){
   
-  # Renaming variabless in the data frame to match the function naming
+  # Renaming variables in the data frame to match the function naming
   data <- data %>%
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
            diverging_var = all_of(diverging_var),
-           labels_var    = all_of(labels_var)) %>%
-    mutate(added_space = if_else(diverging_var == negative_value, -15, 15))
+           labels_var    = all_of(labels_var))
   
   # Creating ggplot
   ggplot(data, aes(x     = grouping_var,
