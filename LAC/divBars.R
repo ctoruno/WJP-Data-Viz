@@ -28,7 +28,7 @@ LAC_divBars <- function(
            grouping_var  = all_of(grouping_var),
            diverging_var = all_of(diverging_var),
            labels_var    = all_of(labels_var)) %>%
-    mutate(added_space = if_else(diverging_var == negative_value, -7.5, 7.5))
+    mutate(added_space = if_else(diverging_var == negative_value, -15, 15))
   
   # Creating ggplot
   ggplot(data, aes(x     = grouping_var,
@@ -37,17 +37,18 @@ LAC_divBars <- function(
                    label = labels_var)) +
     geom_bar(stat        = "identity",
              position    = "stack",
-             show.legend = F) +
+             show.legend = F,
+             width       = 0.85) +
     geom_text(aes(y = target_var + added_space),
-              size     = 10,
+              size     = 3.514598,
               color    = "#4a4a49",
               family   = "Lato Full",
               fontface = "bold") +
     geom_hline(yintercept = 0,
                linetype   = "solid",
-               size       = 0.75,
+               size       = 0.5,
                color      = "#262424") + 
-    scale_fill_manual(values = binPalette) +
+    scale_fill_manual(values = colors) +
     scale_y_continuous(limits = c(-100,100)) +
     scale_x_discrete(limits   = rev) +
     coord_flip() +
@@ -56,8 +57,9 @@ LAC_divBars <- function(
           axis.text.x      = element_blank(),
           axis.text.y      = element_text(family = "Lato Full",
                                           face   = "bold",
-                                          size   = 10*.pt,
-                                          color  = "#262424"),
+                                          size   = 3.514598*.pt,
+                                          color  = "#262424",
+                                          hjust  = 0),
           axis.title.x      = element_blank(),
           axis.title.y      = element_blank())
     
