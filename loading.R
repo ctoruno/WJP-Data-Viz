@@ -19,5 +19,6 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/divBars.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/lineChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/radarChart.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/dotsChart.R")
   }
 }
