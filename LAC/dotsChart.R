@@ -57,9 +57,8 @@ LAC_dotsChart <- function(
                     ymax  = ymax,
                     group = xposition,
                     fill  = fill),
-                alpha     = 0.25,
                 show.legend = F) +
-    scale_fill_manual(values = c("grey"  = "#CDD0DD",
+    scale_fill_manual(values = c("grey"  = "#EBEBEB",
                                  "white" = "white"))
   
   if (diffOpac == F) {
@@ -93,8 +92,10 @@ LAC_dotsChart <- function(
     theme(axis.title.x       = element_blank(),
           axis.title.y       = element_blank(),
           panel.grid.major.y = element_blank(),
-          axis.text.x = element_markdown(),
-          axis.text.y = element_markdown())
+          panel.background   = element_rect(color = NA, 
+                                            fill  = NA), 
+          panel.ontop = T,
+          axis.text.y = element_text(color = "#222221"))
     
   return(plt)
   
