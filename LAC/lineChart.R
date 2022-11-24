@@ -84,6 +84,7 @@ LAC_lineChart <- function(
                        labels = paste0(seq(0,100,20), "%")) +
     WJP_theme() +
     theme(panel.grid.major.x = element_blank(),
+          panel.grid.major.y = element_line(colour = "#d1cfd1"),
           axis.title.x       = element_blank(),
           axis.title.y       = element_blank())
     
