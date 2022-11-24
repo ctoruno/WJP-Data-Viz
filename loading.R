@@ -18,5 +18,6 @@ loadVIZ <- function(set) {
   if (set == "LAC") {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/divBars.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/lineChart.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/radarChart.R")
   }
 }
