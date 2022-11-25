@@ -1,4 +1,11 @@
-horizontal_edgebars_chart <- function(data2plot, title_label, subtitle_label, main_color, labelGeom) {
+horizontal_edgebars_chart <- function(data2plot, 
+                                      title_label, 
+                                      subtitle_label, 
+                                      main_color, 
+                                      labelGeom, 
+                                      title_size = 12,
+                                      subtitle_size = 10,
+                                      axis_size = 8) {
   
   plot <- ggplot(data2plot)+ aes(x = target_value, y = reorder(target, -order_value), fill = pos) +
     geom_bar(position="stack", stat="identity", width=0.60, color = main_color) +
@@ -16,7 +23,6 @@ horizontal_edgebars_chart <- function(data2plot, title_label, subtitle_label, ma
     scale_color_manual(values = c("color" = "white", "no_color" = main_color)) +
     theme_minimal()+
     theme(legend.position="none",
-          legend.text = element_text(family = "Lato Light", size = 4),
           panel.grid.major.y = element_blank(),
           panel.grid.minor.x = element_blank(),
           axis.title.y=element_blank(),
@@ -24,15 +30,19 @@ horizontal_edgebars_chart <- function(data2plot, title_label, subtitle_label, ma
           axis.text.x=element_blank(),
           axis.text.y=element_text(family = "Lato Full",
                                    face = "plain",
-                                   size = 6), 
+                                   size = axis_size), 
           plot.background = element_rect(fill = "white", colour = "white"),
           plot.subtitle=element_text(family = "Lato Full", 
                                      face   = "italic",
-                                     size   = 7, 
+                                     size   = subtitle_size, 
                                      vjust  = 0, 
                                      color  = "Black", 
                                      margin = margin(0,0,0,0)),
-          plot.title=element_text(family="Lato Black", size=10, hjust = -0.0,color="Black", margin=margin(0,0,10,0)),
+          plot.title=element_text(family="Lato Black", 
+                                  size= title_size, 
+                                  hjust = -0.0,
+                                  color="Black", 
+                                  margin=margin(0,0,10,0)),
           plot.title.position = "plot",
           panel.grid.major.x = element_blank())
   
