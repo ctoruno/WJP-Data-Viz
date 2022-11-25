@@ -86,7 +86,8 @@ LAC_dotsChart <- function(
     scale_y_continuous(limits = c(0,100),
                        breaks = seq(0,100,20),
                        labels = paste0(seq(0,100,20),
-                                       "%")) +
+                                       "%"),
+                       position = "right") +
     coord_flip() +
     WJP_theme() +
     theme(axis.title.x       = element_blank(),
@@ -95,7 +96,8 @@ LAC_dotsChart <- function(
           panel.background   = element_rect(color = NA, 
                                             fill  = NA), 
           panel.ontop = T,
-          axis.text.y = element_text(color = "#222221"))
+          axis.text.y = element_text(color = "#222221",
+                                     hjust = 0))
     
   return(plt)
   
