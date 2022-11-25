@@ -19,7 +19,8 @@ LAC_divBars <- function(
     diverging_var,    # Variable that contains the values to diverge,
     negative_value,   # Negative value showed in the diverging_var
     colors,           # Colors to apply to line
-    labels_var        # Variable containing the labels to show in the plot
+    labels_var,        # Variable containing the labels to show in the plot
+    added_space
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -27,7 +28,8 @@ LAC_divBars <- function(
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
            diverging_var = all_of(diverging_var),
-           labels_var    = all_of(labels_var))
+           labels_var    = all_of(labels_var)) %>%
+    mutate(added_space = if_else(diverging_var == negative_value, -15, 15))
   
   # Creating ggplot
   ggplot(data, aes(x     = grouping_var,
