@@ -14,11 +14,11 @@ lollipop_chart <- function(data2plot     = data2plot,
     geom_text(aes(x = value2plot + 0.015, y = category, 
                   label = paste0(value2plot*100,"%"), 
                   family = "Lato Full", fontface = "bold"), 
-              size= 3.514598, color = "black")+
-    coord_cartesian(clip="off")+
-    theme_minimal()+
+              size= 3.514598, color = "black") +
+    coord_cartesian(clip="off") +
+    theme_minimal() +
     scale_x_continuous(breaks = seq(0, 0.25, by = 0.05),limits = c(0,0.25),
-                       labels = scales::percent_format(accuracy = 1), position = "top")+
+                       labels = scales::percent_format(accuracy = 1), position = "top") +
     WJP_theme() +
     theme(legend.position="bottom",
           panel.grid.major.x = element_line(colour = "#d1cfd1", 
