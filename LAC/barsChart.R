@@ -16,6 +16,7 @@ LAC_barsChart <- function(
     data,              # Data frame with data
     target_var,        # Variable that will supply the values to plot
     grouping_var,      # Variable containing the grouping values (Axis Labels)
+    labels_var,        # Variable containing the labels to display in plot
     colors_var,        # Variable containing the groups by color
     colors,            # Colors to apply to bars
     direction          # Should the bars go in a "horizontal" or "vertical" way?
@@ -25,15 +26,21 @@ LAC_barsChart <- function(
   data <- data %>%
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
+           labels_var     = all_of(labels_var),
            colors_var     = all_of(colors_var))
   
   # Creating plot
   plt <- ggplot(data, 
                 aes(x     = grouping_var,
                     y     = target_var,
+                    label = labels_var,
                     fill  = colors_var)) +
     geom_bar(stat = "identity",
              show.legend = F) +
+    geom_text(aes(y    = target_var + 10),
+              color    = "#4a4a49",
+              family   = "Lato Full",
+              fontface = "bold") +
     labs(y = "% of respondents") +
     scale_fill_manual(values = colors)
   
