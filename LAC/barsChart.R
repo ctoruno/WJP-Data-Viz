@@ -24,7 +24,7 @@ LAC_barsChart <- function(
   
   # Renaming variables in the data frame to match the function naming
   data <- data %>%
-    rename(target_var    = all_of(target_var),
+    dplyr::rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
            labels_var     = all_of(labels_var),
            colors_var     = all_of(colors_var))
