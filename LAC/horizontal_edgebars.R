@@ -1,13 +1,14 @@
 horizontal_edgebars <- function(data2plot    = NULL,
                                 y_value      = NULL,
                                 x_var        = NULL,
+                                order_value  = NULL,
                                 label_var    = NULL,
                                 group_var    = NULL,
                                 x_lab_pos    = x_pos,
                                 y_lab_pos    = 0,
                                 bar_color    = "#2a2a94") {
   
-  a <- ggplot(data = data2plot, aes(x = reorder({{x_var}},{{y_value}}),
+  a <- ggplot(data = data2plot, aes(x = reorder({{x_var}},{{order_value}}),
                                     y = {{y_value}})) +
     geom_bar(aes(fill = group),
              position = "stack", 
@@ -17,13 +18,13 @@ horizontal_edgebars <- function(data2plot    = NULL,
              show.legend = F) +
     geom_richtext(aes(x = {{x_lab_pos}}, label = {{x_var}}, y = {{y_lab_pos}},
                       family = "Lato Full"),
-                  fill = NA, label.color = NA, hjust = 0, vjust = 0) +
-    geom_text(aes(x = reorder({{x_var}}, {{y_value}}),
+                  fill = NA, label.color = NA, hjust = 0, vjust = 0, size = 3.514598) +
+    geom_text(aes(x = reorder({{x_var}}, {{order_value}}),
                   y = value + 0.15,
                   label = label),
               color = "#4a4a49",
               family = "Lato Full",
-              fontface = "bold") +
+              fontface = "bold", size = 3.514598) +
     scale_fill_manual(values = c("value" = bar_color,
                                  "empty_value" = "#f3f3f3")) +
     coord_flip() +
