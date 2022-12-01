@@ -25,9 +25,9 @@ LAC_barsChart <- function(
   # Renaming variables in the data frame to match the function naming
   data <- data %>%
     dplyr::rename(target_var    = all_of(target_var),
-           grouping_var  = all_of(grouping_var),
-           labels_var     = all_of(labels_var),
-           colors_var     = all_of(colors_var))
+                  grouping_var  = all_of(grouping_var),
+                  labels_var    = all_of(labels_var),
+                  colors_var    = all_of(colors_var))
   
   # Creating plot
   plt <- ggplot(data, 
