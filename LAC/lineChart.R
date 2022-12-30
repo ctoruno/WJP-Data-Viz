@@ -13,14 +13,16 @@
 ## +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 LAC_lineChart <- function(
-    data,             # Data frame with data
-    target_var,       # Variable that will supply the values to plot
-    grouping_var,     # Variable containing the grouping values (Axis Labels)
-    ngroups,          # Number of groups to plot
-    labels_var,       # Variable containing the labels to show in the plot
-    colors_var,       # Variable containing the groups by color
-    colors,           # Colors to apply to lines
-    repel = F         # Do we need to repel the labels?
+    data,                    # Data frame with data
+    target_var,              # Variable that will supply the values to plot
+    grouping_var,            # Variable containing the grouping values (Axis Labels)
+    ngroups,                 # Number of groups to plot
+    labels_var,              # Variable containing the labels to show in the plot
+    colors_var,              # Variable containing the groups by color
+    colors,                  # Colors to apply to lines
+    repel = F,               # Do we need to repel the labels?
+    transparency = F,        # Apply transparency to char?
+    transparencies = NULL    # Named vector with transparencies to apply
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -36,11 +38,26 @@ LAC_lineChart <- function(
                     y     = target_var,
                     color = colors_var,
                     label = labels_var,
-                    group = ngroups)) +
-    geom_point(size = 2,
-               show.legend = F) +
-    geom_line(size  = 1,
-              show.legend = F)
+                    group = ngroups))
+    
+  if (transparency == F) {
+    plt <- plt +
+      geom_point(size = 2,
+                 show.legend = F) +
+      geom_line(size  = 1,
+                show.legend = F)
+      
+  } else {
+    plt <- plt +
+      geom_point(size = 2,
+                 aes(alpha   = colors_var),
+                 show.legend = F) +
+      geom_line(size = 1,
+                aes(alpha   = colors_var),
+                show.legend = F) +
+      scale_alpha_manual(values = transparencies)
+  }
+    
   
   if (repel == F) {
     

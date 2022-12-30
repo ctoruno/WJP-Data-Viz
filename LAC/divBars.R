@@ -29,7 +29,7 @@ LAC_divBars <- function(
            grouping_var  = all_of(grouping_var),
            diverging_var = all_of(diverging_var),
            labels_var    = all_of(labels_var)) %>%
-    mutate(added_space = if_else(diverging_var == negative_value, -15, 15))
+    mutate(added_space   = if_else(diverging_var == negative_value, -20, 20))
   
   # Creating ggplot
   ggplot(data, aes(x     = grouping_var,
@@ -49,8 +49,8 @@ LAC_divBars <- function(
                linetype   = "solid",
                size       = 0.5,
                color      = "#262424") + 
-    scale_fill_manual(values = colors) +
-    scale_y_continuous(limits = c(-100,100)) +
+    scale_fill_manual(values  = colors) +
+    scale_y_continuous(limits = c(-110,100)) +
     scale_x_discrete(limits   = rev) +
     coord_flip() +
     WJP_theme() +
