@@ -20,11 +20,11 @@ horizontal_edgebars <- function(data2plot    = NULL,
                       family = "Lato Full", fontface = "plain"),
                   fill = NA, label.color = NA, hjust = 0, vjust = 0, size = 3.514598) +
     geom_text(aes(x = reorder({{x_var}}, {{order_value}}),
-                  y = value + 0.15,
+                  y = {{y_value}} + 0.25,
                   label = label),
               color = "#4a4a49",
               family = "Lato Full",
-              fontface = "bold", size = 3.514598) +
+              fontface = "bold", size = 3.514598, hjust = 0.1) +
     scale_fill_manual(values = c("value" = bar_color,
                                  "empty_value" = "#f3f3f3")) +
     scale_y_continuous(expand = expansion(mult = c(0,0.075))) +
