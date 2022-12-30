@@ -10,8 +10,8 @@ horizontal_edgebars <- function(data2plot    = NULL,
                                 margin_top   = 20) {
   
   a <- ggplot(data = data2plot, aes(x = reorder({{x_var}},{{order_value}}),
-                                    y = {{y_value}})) +
-    geom_bar(aes(fill = group),
+                                    y = {{y_value}}, fill = {{group_var}})) +
+    geom_bar(aes(fill = {{group_var}}),
              position = "stack", 
              stat     = "identity",
              width    = 0.35, 
