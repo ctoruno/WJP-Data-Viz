@@ -15,10 +15,10 @@ lollipop_chart <- function(data2plot     = data2plot,
     geom_text(aes(x = value2plot, y = category, 
                   label = paste0(value2plot*100,"%"), 
                   family = "Lato Full", fontface = "bold"), 
-              size= 3.514598, color = "black", hjust = 0.015) +
+              size= 3.514598, color = "black", hjust = 0.05) +
     coord_cartesian(clip="off") +
     theme_minimal() +
-    scale_x_continuous(breaks = seq(0, 0.75, by = 0.05),limits = c(0,0.9),
+    scale_x_continuous(breaks = seq(0, 0.9, by = 0.1),limits = c(0,0.9),
                        labels = scales::percent_format(accuracy = 1), position = "top") +
     WJP_theme() +
     theme(legend.position="bottom",
