@@ -12,7 +12,7 @@ lollipop_chart <- function(data2plot     = data2plot,
                    size = line_size, color = line_color) +
     geom_point(aes(x = value2plot, y = reorder(category, value2plot)),
                size = line_size, shape=16, color = point_color) +
-    geom_text(aes(x = value2plot + 0.015, y = category, 
+    geom_text(aes(x = value2plot + 0.25, y = category, 
                   label = paste0(value2plot*100,"%"), 
                   family = "Lato Full", fontface = "bold"), 
               size= 3.514598, color = "black") +
