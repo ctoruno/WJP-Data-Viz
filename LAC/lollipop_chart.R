@@ -15,7 +15,7 @@ lollipop_chart <- function(data2plot     = data2plot,
     geom_text(aes(x = value2plot, y = category, 
                   label = paste0(value2plot*100,"%"), 
                   family = "Lato Full", fontface = "bold"), 
-              size= 3.514598, color = "black", hjust = 0.10) +
+              size= 3.514598, color = "black", hjust = 0.015) +
     coord_cartesian(clip="off") +
     theme_minimal() +
     scale_x_continuous(breaks = seq(0, 0.75, by = 0.05),limits = c(0,0.9),
