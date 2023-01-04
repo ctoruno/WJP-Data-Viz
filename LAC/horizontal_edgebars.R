@@ -1,7 +1,6 @@
 horizontal_edgebars <- function(data2plot    = NULL,
                                 y_value      = NULL,
                                 x_var        = NULL,
-                                order_value  = NULL,
                                 label_var    = NULL,
                                 group_var    = NULL,
                                 x_lab_pos    = x_pos,
@@ -9,7 +8,7 @@ horizontal_edgebars <- function(data2plot    = NULL,
                                 bar_color    = "#2a2a94",
                                 margin_top   = 20) {
   
-  a <- ggplot(data = data2plot, aes(x = reorder({{x_var}},{{order_value}}),
+  a <- ggplot(data = data2plot, aes(x = reorder({{x_var}},{{x_lab_pos}}),
                                     y = {{y_value}}, fill = {{group_var}})) +
     geom_bar(aes(fill = {{group_var}}),
              position = "stack", 
@@ -19,7 +18,7 @@ horizontal_edgebars <- function(data2plot    = NULL,
     geom_richtext(aes(x = {{x_lab_pos}}, label = {{x_var}}, y = {{y_lab_pos}}-0.01,
                       family = "Lato Full", fontface = "plain"),
                   fill = NA, label.color = NA, hjust = 0, vjust = 0, size = 3.514598) +
-    geom_text(aes(x = reorder({{x_var}}, {{order_value}}),
+    geom_text(aes(x = reorder({{x_var}}, {{x_lab_pos}}),
                   y = {{y_value}},
                   label = label),
               color = "#4a4a49",
