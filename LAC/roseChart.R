@@ -27,16 +27,15 @@ LAC_roseChart <- function(
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
            alabels_var   = all_of(alabels_var),
-           plabels_var   = all_of(plabels_var),
-           order_value   = all_of(order_value))
+           plabels_var   = all_of(plabels_var))
   
   # Creating ggplot
   plt <- ggplot(data = data, 
                 aes(x = alabels_var,
                     y = target_var)) +
-    geom_segment(aes(x    = reorder(alabels_var, order_value),
+    geom_segment(aes(x    = reorder(alabels_var, target_var),
                      y    = 0,
-                     xend = reorder(alabels_var, order_value),
+                     xend = reorder(alabels_var, target_var),
                      yend = 0.8),
                  linetype = "solid",
                  color    = "#d1cfd1") +
@@ -44,7 +43,7 @@ LAC_roseChart <- function(
                colour     = "#d1cfd1", 
                linetype   = "dashed",
                size       = 0.45) +
-    geom_col(aes(x        = reorder(alabels_var, order_value),
+    geom_col(aes(x        = reorder(alabels_var, target_var),
                  y        = target_var,
                  fill     = grouping_var),
              position     = "dodge2",
