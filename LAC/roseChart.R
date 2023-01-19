@@ -18,6 +18,7 @@ LAC_roseChart <- function(
     grouping_var,     # Variable with the different categories to show
     alabels_var,      # Variable that contains the axis labels to display
     plabels_var,      # Variable that contains the percentages labels to displays
+    order_value,      # Variable to order the variables
     colors            # Named vector with the colors to apply to bars.
 ){
   
@@ -26,15 +27,16 @@ LAC_roseChart <- function(
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
            alabels_var   = all_of(alabels_var),
-           plabels_var   = all_of(plabels_var))
+           plabels_var   = all_of(plabels_var),
+           order_value   = all_of(order_value))
   
   # Creating ggplot
   plt <- ggplot(data = data, 
                 aes(x = alabels_var,
                     y = target_var)) +
-    geom_segment(aes(x    = reorder(alabels_var, target_var),
+    geom_segment(aes(x    = reorder(alabels_var, order_value),
                      y    = 0,
-                     xend = reorder(alabels_var, target_var),
+                     xend = reorder(alabels_var, order_value),
                      yend = 0.8),
                  linetype = "solid",
                  color    = "#d1cfd1") +
@@ -42,7 +44,7 @@ LAC_roseChart <- function(
                colour     = "#d1cfd1", 
                linetype   = "dashed",
                size       = 0.45) +
-    geom_col(aes(x        = reorder(alabels_var, target_var),
+    geom_col(aes(x        = reorder(alabels_var, order_value),
                  y        = target_var,
                  fill     = grouping_var),
              position     = "dodge2",
