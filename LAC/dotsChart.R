@@ -36,7 +36,7 @@ LAC_dotsChart <- function(
            xposition = rev(1:nrow(.)),
            xmin = xposition - 0.5,
            xmax = xposition + 0.5,
-           fill = rep(c("grey", "white"), 
+           fill = rep(c("grey", "NULL"), 
                       length.out = nrow(.))) %>%
     pivot_longer(c(xmin, xmax),
                  names_to  = "cat",
@@ -59,7 +59,7 @@ LAC_dotsChart <- function(
                     fill  = fill),
                 show.legend = F) +
     scale_fill_manual(values = c("grey"  = "#EBEBEB",
-                                 "white" = "white"))
+                                 "NULL"  = NULL))
   
   if (diffOpac == F) {
     plt <- plt +
