@@ -71,7 +71,8 @@ LAC_radarChart <- function(
                           label.color = NA) +
     scale_y_continuous(expand = expansion(mult = 0.065)) +
     theme(legend.position    = "none",
-          panel.background   = element_blank())
+          panel.background   = element_blank(),
+          plot.background    = element_blank())
   
   return(radar)
   
