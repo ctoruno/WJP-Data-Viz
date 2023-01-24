@@ -93,8 +93,7 @@ LAC_dotsChart <- function(
     theme(axis.title.x       = element_blank(),
           axis.title.y       = element_blank(),
           panel.grid.major.y = element_blank(),
-          panel.background   = element_rect(color = NA, 
-                                            fill  = NA), 
+          panel.background   = element_blank(), 
           panel.ontop = T,
           axis.text.y = element_text(color = "#222221",
                                      hjust = 0))
