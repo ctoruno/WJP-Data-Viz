@@ -42,7 +42,6 @@ LAC_radarChart <- function(
     # supports markdown syntax in the labels.
     
     axis.labels.color = "black",
-    # axis.labels       = rep("", 8),
     axis.label.size  = 1,
     group.colours    = colors,
     group.line.width = 0.75
