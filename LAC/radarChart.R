@@ -41,7 +41,7 @@ LAC_radarChart <- function(
     # We gonna use these coordinates to plot these labels again but using ggtext::geom_richtext which
     # supports markdown syntax in the labels.
     
-    axis.labels.color = "white",
+    axis.labels.color = "black",
     axis.label.size  = 1,
     group.colours    = colors,
     group.line.width = 0.75
@@ -53,6 +53,11 @@ LAC_radarChart <- function(
                   labelling_fn,
                   color_code    = colors[1],
                   value_vectors = percentages))
+  
+  # Dropping axis layers from ggplt
+  base_figure$layers[[1]] <- NULL
+  base_figure$layers[[7]] <- NULL
+  base_figure$layers[[7]] <- NULL
   
   # Adding additional aesthetics to radar chart using the "traditional" tools from ggplot2
   radar <- base_figure +
