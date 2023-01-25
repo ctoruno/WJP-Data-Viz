@@ -36,17 +36,18 @@ LAC_dotsChart <- function(
            xposition = rev(1:nrow(.)),
            xmin = xposition - 0.5,
            xmax = xposition + 0.5,
-           fill = rep(c("grey", "NULL"), 
+           fill = rep(c("grey", "white"), 
                       length.out = nrow(.))) %>%
     pivot_longer(c(xmin, xmax),
                  names_to  = "cat",
                  values_to = "x") %>%
-    select(-cat)
+    select(-cat) %>%
+    filter(fill != "white")
     
   
   # Creating ggplot
   plt <- ggplot() +
-    geom_blank(data = data,
+    geom_blank(data      = data,
                aes(x     = labels_var,
                    y     = target_var,
                    label = labels_var,
@@ -59,12 +60,12 @@ LAC_dotsChart <- function(
                     fill  = fill),
                 show.legend = F) +
     scale_fill_manual(values = c("grey"  = "#EBEBEB",
-                                 "NULL"  = NULL),
+                                 "white"  = "#FFFFFF"),
                       na.value = NULL)
   
   if (diffOpac == F) {
     plt <- plt +
-      geom_point(data = data,
+      geom_point(data      = data,
                  aes(x     = labels_var,
                      y     = target_var,
                      color = grouping_var),
