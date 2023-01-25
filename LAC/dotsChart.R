@@ -59,7 +59,8 @@ LAC_dotsChart <- function(
                     fill  = fill),
                 show.legend = F) +
     scale_fill_manual(values = c("grey"  = "#EBEBEB",
-                                 "NULL"  = NULL))
+                                 "NULL"  = NULL),
+                      na.value = NULL)
   
   if (diffOpac == F) {
     plt <- plt +
