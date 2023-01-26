@@ -3,14 +3,15 @@ lollipop_chart <- function(data2plot     = data2plot,
                            point_size    = 4,
                            line_color    = "#c4c4c4",
                            point_color   = "#2a2a94",
-                           categories      = category,
-                           values        = value2plot
+                           categories    = category,
+                           values        = value2plot,
+                           order_var     = order_value
 ) {
   ggplot(data2plot) +
-    geom_linerange(aes(y = reorder(category, value2plot),  
+    geom_linerange(aes(y = reorder(category, order_var),  
                        xmin = 0, xmax = value2plot), 
                    size = line_size, color = line_color) +
-    geom_point(aes(x = value2plot, y = reorder(category, value2plot)),
+    geom_point(aes(x = value2plot, y = reorder(category, order_var)),
                size = line_size, shape=16, color = point_color) +
     geom_text(aes(x = value2plot + 0.075, y = category, 
                   label = paste0(value2plot*100,"%"), 
