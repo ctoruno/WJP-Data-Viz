@@ -61,6 +61,7 @@ LAC_barsChart <- function(
                          breaks = seq(0,100,20),
                          labels = paste0(seq(0,100,20), "%"),
                          position = "right") +
+      scale_x_reverse() +
       coord_flip() +
       WJP_theme() +
       theme(panel.grid.major.y = element_blank(),
