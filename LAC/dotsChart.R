@@ -50,8 +50,8 @@ LAC_dotsChart <- function(
   # Creating ggplot
   plt <- ggplot() +
     geom_blank(data      = data,
-               aes(x     = labels_var,
-                   y     = reorder(-order_var, target_var),
+               aes(x     = reorder(labels_var, -order_var),
+                   y     = target_var,
                    label = labels_var,
                    color = grouping_var)) +
     geom_ribbon(data      = strips,
@@ -68,16 +68,16 @@ LAC_dotsChart <- function(
   if (diffOpac == F) {
     plt <- plt +
       geom_point(data      = data,
-                 aes(x     = labels_var,
-                     y     = reorder(-order_var, target_var),
+                 aes(x     = reorder(labels_var, -order_var),
+                     y     = target_var,
                      color = grouping_var),
                  size = 4,
                  show.legend = F)
   } else {
     plt <- plt +
       geom_point(data = data,
-                 aes(x     = labels_var,
-                     y     = reorder(-order_var, target_var),
+                 aes(x     = reorder(labels_var, -order_var),
+                     y     = target_var,
                      color = grouping_var,
                      alpha = grouping_var),
                  size      = 4,
