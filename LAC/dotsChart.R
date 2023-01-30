@@ -69,7 +69,7 @@ LAC_dotsChart <- function(
     plt <- plt +
       geom_point(data      = data,
                  aes(x     = labels_var,
-                     y     = target_var,
+                     y     = reorder(target_var,-order_var),
                      color = grouping_var),
                  size = 4,
                  show.legend = F)
