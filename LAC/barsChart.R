@@ -57,7 +57,7 @@ LAC_barsChart <- function(
   
   if (direction == "horizontal") {
     plt  <- plt +
-      scale_y_continuous(limits = c(0, 100),
+      scale_y_continuous(limits = c(0, 105),
                          breaks = seq(0,100,20),
                          labels = paste0(seq(0,100,20), "%"),
                          position = "right") +
