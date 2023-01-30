@@ -18,6 +18,7 @@ LAC_dotsChart <- function(
     grouping_var,     # Variable containing the grouping values. Plot will show a different color per group.
     labels_var,       # Variable containing the Y-Axis labels to show in the plot
     colors,           # Named vector with the colors to apply to lines
+    order_var,
     diffOpac = F,     # Should the dots have different opacity levels?
     opacities         # Named vector with opacity levels
 ){
@@ -26,7 +27,8 @@ LAC_dotsChart <- function(
   data <- data %>%
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
-           labels_var    = all_of(labels_var))
+           labels_var    = all_of(labels_var),
+           order_var     = all_of(order_var))
   
   strips <- data %>%
     group_by(labels_var) %>%
@@ -75,7 +77,7 @@ LAC_dotsChart <- function(
     plt <- plt +
       geom_point(data = data,
                  aes(x     = labels_var,
-                     y     = target_var,
+                     y     = reorder(target_var, -order_var),
                      color = grouping_var,
                      alpha = grouping_var),
                  size      = 4,
