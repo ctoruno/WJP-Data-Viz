@@ -51,7 +51,7 @@ LAC_dotsChart <- function(
   plt <- ggplot() +
     geom_blank(data      = data,
                aes(x     = labels_var,
-                   y     = target_var,
+                   y     = reorder(target_var, -order_var),
                    label = labels_var,
                    color = grouping_var)) +
     geom_ribbon(data      = strips,
