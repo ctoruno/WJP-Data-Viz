@@ -57,7 +57,6 @@ LAC_lineChart <- function(
                 show.legend = F) +
       scale_alpha_manual(values = transparencies)
   }
-    
   
   if (repel == F) {
     
