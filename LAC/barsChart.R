@@ -19,7 +19,9 @@ LAC_barsChart <- function(
     labels_var,        # Variable containing the labels to display in plot
     colors_var,        # Variable containing the groups by color
     colors,            # Colors to apply to bars
-    direction          # Should the bars go in a "horizontal" or "vertical" way?
+    direction,         # Should the bars go in a "horizontal" or "vertical" way?
+    stacked = F,       # Stack bars on top of each other?
+    lab_pos           # Variable containing the Y coordinates of the stacked labels
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -27,20 +29,38 @@ LAC_barsChart <- function(
     dplyr::rename(target_var    = all_of(target_var),
                   grouping_var  = all_of(grouping_var),
                   labels_var    = all_of(labels_var),
-                  colors_var    = all_of(colors_var))
+                  colors_var    = all_of(colors_var),
+                  lab_pos       = all_of(lab_pos))
   
   # Creating plot
-  plt <- ggplot(data, 
-                aes(x     = grouping_var,
-                    y     = target_var,
-                    label = labels_var,
-                    fill  = colors_var)) +
-    geom_bar(stat = "identity",
-             show.legend = F) +
-    geom_text(aes(y    = target_var + 10),
-              color    = "#4a4a49",
-              family   = "Lato Full",
-              fontface = "bold") +
+  if (stacked == F) {
+    plt <- ggplot(data, 
+                  aes(x     = grouping_var,
+                      y     = target_var,
+                      label = labels_var,
+                      fill  = colors_var)) +
+      geom_bar(stat = "identity",
+               show.legend = F) +
+      geom_text(aes(y    = target_var + 10),
+                color    = "#4a4a49",
+                family   = "Lato Full",
+                fontface = "bold")
+  } else {
+    plt <- ggplot(data, 
+                  aes(x     = grouping_var,
+                      y     = target_var,
+                      label = labels_var,
+                      fill  = colors_var)) +
+      geom_bar(stat         = "identity",
+               position     = "stack", 
+               show.legend  = F) +
+      geom_text(aes(y    = lab_pos),
+                color    = "#ffffff",
+                family   = "Lato Full",
+                fontface = "bold")
+  }
+  
+  plt <- plt +
     labs(y = "% of respondents") +
     scale_fill_manual(values = colors)
   
