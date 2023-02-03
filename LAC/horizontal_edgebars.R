@@ -23,7 +23,7 @@ horizontal_edgebars <- function(data2plot    = NULL,
                   label = label),
               color = "#4a4a49",
               family = "Lato Full",
-              fontface = "bold", size = 3.514598, hjust = -0.25) +
+              fontface = "bold", size = 3.514598, hjust = -0.1) +
     scale_fill_manual(values = c("value" = bar_color,
                                  "empty_value" = "#f3f3f3")) +
     scale_y_continuous(expand = expansion(mult = c(0,0.15))) +
