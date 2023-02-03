@@ -15,7 +15,7 @@ horizontal_edgebars <- function(data2plot    = NULL,
              stat     = "identity",
              width    = 0.35, 
              show.legend = F) +
-    geom_richtext(aes(x = {{x_lab_pos}}, label = {{x_var}}, y = {{y_lab_pos}} - 0.01,
+    geom_richtext(aes(x = {{x_lab_pos}}, label = {{x_var}}, y = {{y_lab_pos}}-0.01,
                       family = "Lato Full", fontface = "plain"),
                   fill = NA, label.color = NA, hjust = 0, vjust = 0, size = 3.514598) +
     geom_text(aes(x = reorder({{x_var}}, {{x_lab_pos}}),
