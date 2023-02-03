@@ -35,7 +35,7 @@ horizontal_edgebars <- function(data2plot    = NULL,
           axis.title.x = element_blank(),
           axis.title.y = element_blank(),
           axis.text.x = element_blank(),
-          plot.margin = margin(margin_top, 0, -15, 0),
+          plot.margin = margin(margin_top, 10, -15, 0),
           plot.background = element_blank())
   
   return(a)
