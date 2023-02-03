@@ -21,7 +21,7 @@ LAC_barsChart <- function(
     colors,            # Colors to apply to bars
     direction,         # Should the bars go in a "horizontal" or "vertical" way?
     stacked = F,       # Stack bars on top of each other?
-    lab_pos           # Variable containing the Y coordinates of the stacked labels
+    lab_pos = NULL     # Variable containing the Y coordinates of the stacked labels
 ){
   
   # Renaming variables in the data frame to match the function naming
