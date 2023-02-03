@@ -26,7 +26,7 @@ horizontal_edgebars <- function(data2plot    = NULL,
               fontface = "bold", size = 3.514598, hjust = -0.25) +
     scale_fill_manual(values = c("value" = bar_color,
                                  "empty_value" = "#f3f3f3")) +
-    scale_y_continuous(expand = expansion(mult = c(0,0.125))) +
+    scale_y_continuous(expand = expansion(mult = c(0,0.25))) +
     coord_flip(clip = "off") +
     WJP_theme() +
     theme(panel.grid.major.x = element_blank(),
