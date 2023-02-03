@@ -16,7 +16,8 @@ logit_demo_panel <- function(mainData = data2plot,
     labs(y = "Less likely                               More likely") +
     scale_y_continuous(limits = c(-0.5, 0.5),
                        breaks = seq(-0.5, 0.5, by = 0.25),
-                       expand = expansion(mult = 0.025), position = "right")+
+                       expand = expansion(mult = 0.025), position = "right",
+                       labels = c("-50", "-25", "0", "+25", "+50"))+
     WJP_theme()+
     coord_flip() +
     theme(legend.position = "none",
