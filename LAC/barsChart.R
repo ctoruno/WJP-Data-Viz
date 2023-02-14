@@ -21,7 +21,8 @@ LAC_barsChart <- function(
     colors,            # Colors to apply to bars
     direction,         # Should the bars go in a "horizontal" or "vertical" way?
     stacked = F,       # Stack bars on top of each other?
-    lab_pos = NULL     # Variable containing the Y coordinates of the stacked labels
+    lab_pos = NULL,    # Variable containing the Y coordinates of the stacked labels
+    expand  = F        # Do we need to give extra space for the labels?
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -64,9 +65,17 @@ LAC_barsChart <- function(
     labs(y = "% of respondents") +
     scale_fill_manual(values = colors)
   
+  if (expand == F) {
+    uplimitV = 100
+    uplimitH = 105
+  } else {
+    uplimitV = 110
+    uplimitH = 105
+  }
+  
   if (direction == "vertical") {
     plt  <- plt +
-      scale_y_continuous(limits = c(0, 100),
+      scale_y_continuous(limits = c(0, uplimitV),
                          breaks = seq(0,100,20),
                          labels = paste0(seq(0,100,20), "%")) +
       WJP_theme() +
@@ -77,7 +86,7 @@ LAC_barsChart <- function(
   
   if (direction == "horizontal") {
     plt  <- plt +
-      scale_y_continuous(limits = c(0, 105),
+      scale_y_continuous(limits = c(0, uplimitH),
                          breaks = seq(0,100,20),
                          labels = paste0(seq(0,100,20), "%"),
                          position = "right") +
