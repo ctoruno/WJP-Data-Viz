@@ -19,7 +19,7 @@ lollipop_chart <- function(data2plot     = data2plot,
               size= 3.514598, color = "black") +
     coord_cartesian(clip="off") +
     theme_minimal() +
-    scale_x_continuous(breaks = seq(0, 0.9, by = 0.1),limits = c(0,0.9),
+    scale_x_continuous(breaks = seq(0, 1, by = 0.1),limits = c(0,1),
                        labels = scales::percent_format(accuracy = 1), position = "top") +
     WJP_theme() +
     theme(legend.position="bottom",

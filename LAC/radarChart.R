@@ -44,7 +44,8 @@ LAC_radarChart <- function(
     axis.labels.color = "black",
     axis.label.size  = 1,
     group.colours    = colors,
-    group.line.width = 0.75
+    group.line.width = 0.75,
+    axis.label.offset = 2
   )
   
   # Transforming labels using an externally predefined function
