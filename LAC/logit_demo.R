@@ -14,10 +14,10 @@ logit_demo_panel <- function(mainData = data2plot,
     geom_point(aes(x = reorder(factor, -order_variable), y = AME), 
                size = 2, position = position_dodge(width = .7), color = "white") +
     labs(y = "Less likely                               More likely") +
-    scale_y_continuous(limits = c(-0.25, 0.25),
-                       breaks = seq(-0.25, 0.25, by = 0.125),
+    scale_y_continuous(limits = c(-0.30, 0.30),
+                       breaks = seq(-0.30, 0.30, by = 0.15),
                        expand = expansion(mult = 0.025), position = "right",
-                       labels = c("-25", "-12.5", "0", "+12.5", "+25"))+
+                       labels = c("-30", "-15", "0", "+15", "+30"))+
     WJP_theme()+
     coord_flip() +
     theme(legend.position = "none",
