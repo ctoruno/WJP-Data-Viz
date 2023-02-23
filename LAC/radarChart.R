@@ -14,70 +14,168 @@
 
 LAC_radarChart <- function(
     data,             # Data frame with data
-    labelling_fn,     # Labelling function that will define labels in markdown and HTML syntax
-    colors,           # Colors to apply to lines. First code will be applied to percentages in labels
-    percentages       # Named vector with percentages to display in labels
+    axis_var,         # Variable containing the groups for the axis
+    target_var,       # Variable containing the values to be plotted
+    label_var,        # Variable containing the labels to be displayed
+    order_var,        # Variable containing the display order of categories
+    colors            # Colors to apply to lines. First code will be applied to percentages in labels
 ){
   
-  # Plotting base radar chart
-  # We use ggradar2 to get a basic radar chart. I prefer this package over fmsb given that it works as an
-  # extension of ggplot2. Therefore, we can work the aesthetics using ggplot2 tools afterwards.
-  base_figure <- ggradar2::ggradar2(
-    data,
-    radarshape  = "sharp",
-    fullscore   = rep(1, 8),
-    polygonfill = F,
-    background.circle.colour = "white",
-    gridline.mid.colour      = "grey",
-    gridline.min.linetype    = "solid",
-    gridline.mid.linetype    = "solid",
-    gridline.max.linetype    = "solid",
-    grid.label.size = 3.514598,
+  # Renaming variables in the data frame to match the function naming
+  data <- data %>%
+    rename(axis_var    = all_of(axis_var),
+           target_var  = all_of(target_var),
+           label_var   = all_of(label_var),
+           order_var   = all_of(order_var))
+  
+  # Counting number of axis for the radar
+  nvertix <- length(unique(data$axis_var))
+  
+  # Distance to the center of the web 
+  central_distance <- 0.2
+  
+  # Function to generate radar coordinates
+  circle_coords <- function(r, n_axis = nvertix){
+    fi <- seq(0, 2*pi, (1/n_axis)*2*pi) + pi/2
+    x <- r*cos(fi)
+    y <- r*sin(fi)
     
-    # The following part is IMPORTANT. We define the labels using a markdown syntax. However, given that
-    # ggradar2 uses geom_text(), markdown language is not supported and all the italics or bold fonts. 
-    # will not be reflected. Therefore, we set labels with color == "white" so they are not visible  
-    # However, ggradar estimates the optimal X and Y coordinates of these labels and saves them as plot data.
-    # We gonna use these coordinates to plot these labels again but using ggtext::geom_richtext which
-    # supports markdown syntax in the labels.
+    tibble(x, y, r)
+  }
+  
+  # Function to generate axis lines
+  axis_coords <- function(n_axis = nvertix){
+    fi <- seq(0, (1 - 1/n_axis)*2*pi, (1/n_axis)*2*pi) + pi/2
+    x1 <- central_distance*cos(fi)
+    y1 <- central_distance*sin(fi)
+    x2 <- (1 + central_distance)*cos(fi)
+    y2 <- (1 + central_distance)*sin(fi)
     
-    axis.labels.color = "black",
-    axis.label.size  = 1,
-    group.colours    = colors,
-    group.line.width = 0.75
-    )
+    tibble(x = c(x1, x2), y = c(y1, y2), id = rep(1:n_axis, 2))
+  }
   
-  # Transforming labels using an externally predefined function
-  base_figure$data <- base_figure$data %>%
-    mutate(across(text,
-                  labelling_fn,
-                  color_code    = colors[1],
-                  value_vectors = percentages))
+  # Function to generate axis coordinates
+  text_coords <- function(r      = 1.5, 
+                          n_axis = nvertix){
+    fi <- seq(0, (1 - 1/n_axis)*2*pi, (1/n_axis)*2*pi) + pi/2 + 0.01*2*pi/r
+    x <- r*cos(fi)
+    y <- r*sin(fi)
+    
+    tibble(x, y, r = r - central_distance)
+  }
   
-  # Dropping axis layers from ggplt
-  base_figure$layers[[1]] <- NULL
-  base_figure$layers[[7]] <- NULL
-  base_figure$layers[[7]] <- NULL
+  # Y-Axis labels
+  axis_measure <- tibble(r         = seq(0, 1, 0.2),
+                         parameter = rep(data %>% 
+                                           filter(order_var == 1) %>% 
+                                           distinct(axis_var) %>% 
+                                           pull(axis_var),
+                                         6)) %>%
+    bind_cols(map_df(seq(0, 1, 0.2) + central_distance, text_coords) %>% distinct(r, .keep_all = T) %>% select(-r))
   
-  # Adding additional aesthetics to radar chart using the "traditional" tools from ggplot2
-  radar <- base_figure +
-    ggtext::geom_richtext(data  = base_figure$data,
-                          # For the aesthetics, we bring the X and Y coordinates saved by ggradar2 with
-                          # a minor adjustment depending on the final position of the label.
-                          aes(x     = x*c(1.0, 1.2, 1.17, 1.12, 1.0, 1.1, 1.15, 1.1), 
-                              y     = y*c(1.1, 1.2, 1.10, 1.12, 1.1, 1.1, 1.10, 1.1), 
-                              label = text),
-                          family      = "Lato Full",
-                          fontface    = "plain",
-                          hjust       = 0.5, 
-                          size        = 3.514598,
-                          text.colour = "#524F4C", 
-                          fill        = NA, 
-                          label.color = NA) +
-    scale_y_continuous(expand = expansion(mult = 0.065)) +
-    theme(legend.position    = "none",
-          panel.background   = element_blank(),
-          plot.background    = element_blank())
+  # Generating data points
+  rescaled_coords <- function(r, n_axis = nvertix){
+    fi <- seq(0, 2*pi, (1/n_axis)*2*pi) + pi/2
+    tibble(r, fi) %>% mutate(x = r*cos(fi), y = r*sin(fi)) %>% select(-fi)
+  }
+  
+  rescaled_data <- data %>% 
+    bind_rows(data %>% 
+                filter(axis_var == data %>% 
+                         filter(order_var == 1) %>% 
+                         distinct(axis_var) %>% 
+                         pull(axis_var)) %>%
+                mutate(axis_var  = "copy",
+                       order_var = 9)) %>%
+    group_by(year) %>%
+    arrange(order_var) %>%
+    mutate(coords = rescaled_coords(target_var + central_distance)) %>%
+    unnest(cols   = c(coords)) %>%
+    mutate(across(x, 
+                  ~.x*-1))
+  
+  # Generating ggplot
+  radar <- 
+    
+    # We set up the ggplot
+    ggplot(data = map_df(seq(0, 1, 0.20) + central_distance, circle_coords),
+           aes(x = x, 
+               y = y)) +
+    
+    # We draw the outter ring
+    geom_polygon(data     = circle_coords(1 + central_distance),
+                 linetype = "dotted",
+                 color    = "#d1cfd1",
+                 fill     = NA) +
+    
+    # We draw the inner rings
+    geom_path(aes(group = r), 
+              lty       = 2, 
+              color     = "#d1cfd1") +
+    
+    # We draw the ZERO ring
+    geom_polygon(data = map_df(seq(0, 1, 0.20) + central_distance, circle_coords) %>%
+                   filter(r == 0.2),
+                 fill      = NA,
+                 linetype  = "solid",
+                 color     = "#d1cfd1") +
+    
+    # Then, we draw the Y-axis lines
+    geom_line(data = axis_coords(), 
+              aes(x     = x, 
+                  y     = y, 
+                  group = id),
+              color = "#d1cfd1") +
+    
+    # Along with its labels
+    geom_text(data = axis_measure, 
+              aes(x     = x, 
+                  y     = y, 
+                  label = to_percentage.fn(r*100)), 
+              family      = "Lato Full",
+              fontface    = "plain",
+              color = "#524F4C") +
+    
+    # Then, we add the axis labels
+    geom_richtext(data  = text_coords() %>%
+                    mutate(n = row_number(),
+                           across(x, 
+                                  ~.x*-1),
+                           across(c(x,y),
+                                  ~if_else(n == 2, .x*1.125, .x))),  # We need to adjust by the long text in axis number 8
+                  aes(x = x, 
+                      y = y), 
+                  label = data %>% 
+                    arrange(order_var) %>% 
+                    filter(year == latestYear) %>% 
+                    pull(label_var),
+                  family      = "Lato Full",
+                  fontface    = "plain",
+                  fill        = NA, 
+                  label.color = NA) +
+    
+    # We add the data points along whith its lines
+    geom_point(data = rescaled_data, 
+               aes(x     = x, 
+                   y     = y, 
+                   group = year, 
+                   color = as.factor(year)), 
+               size      = 3) +
+    geom_path(data = rescaled_data, 
+              aes(x     = x, 
+                  y     = y, 
+                  group = year, 
+                  color = as.factor(year)), 
+              size = 1) +
+    
+    coord_cartesian(clip = "off") + 
+    scale_x_continuous(expand = expansion(mult = 0.125)) + 
+    scale_y_continuous(expand = expansion(mult = 0.10)) + 
+    scale_color_manual(values = colors) +
+    theme_void() +
+    theme(panel.background   = element_blank(),
+          plot.background    = element_blank(),
+          legend.position    = "none")
   
   return(radar)
   
