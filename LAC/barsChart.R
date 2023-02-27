@@ -22,7 +22,9 @@ LAC_barsChart <- function(
     direction,         # Should the bars go in a "horizontal" or "vertical" way?
     stacked = F,       # Stack bars on top of each other?
     lab_pos = NULL,    # Variable containing the Y coordinates of the stacked labels
-    expand  = F        # Do we need to give extra space for the labels?
+    expand  = F,       # Do we need to give extra space for the labels?
+    custom_order = F,  # Do we want a customize order in the graph labels?
+    order_var = NULL   # Variable containing the custom order for the labels
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -31,34 +33,67 @@ LAC_barsChart <- function(
                   grouping_var  = all_of(grouping_var),
                   labels_var    = all_of(labels_var),
                   colors_var    = all_of(colors_var),
-                  lab_pos       = all_of(lab_pos))
+                  lab_pos       = all_of(lab_pos),
+                  order_var     = all_of(order_var))
   
   # Creating plot
-  if (stacked == F) {
-    plt <- ggplot(data, 
-                  aes(x     = grouping_var,
-                      y     = target_var,
-                      label = labels_var,
-                      fill  = colors_var)) +
-      geom_bar(stat = "identity",
-               show.legend = F) +
-      geom_text(aes(y    = target_var + 10),
-                color    = "#4a4a49",
-                family   = "Lato Full",
-                fontface = "bold")
+  if(custom_order == F) {
+    
+    if (stacked == F) {
+      plt <- ggplot(data, 
+                    aes(x     = grouping_var,
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat = "identity",
+                 show.legend = F) +
+        geom_text(aes(y    = target_var + 10),
+                  color    = "#4a4a49",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    } else {
+      plt <- ggplot(data, 
+                    aes(x     = grouping_var,
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat         = "identity",
+                 position     = "stack", 
+                 show.legend  = F) +
+        geom_text(aes(y    = lab_pos),
+                  color    = "#ffffff",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    }
+    
   } else {
-    plt <- ggplot(data, 
-                  aes(x     = grouping_var,
-                      y     = target_var,
-                      label = labels_var,
-                      fill  = colors_var)) +
-      geom_bar(stat         = "identity",
-               position     = "stack", 
-               show.legend  = F) +
-      geom_text(aes(y    = lab_pos),
-                color    = "#ffffff",
-                family   = "Lato Full",
-                fontface = "bold")
+    
+    if (stacked == F) {
+      plt <- ggplot(data, 
+                    aes(x     = reorder(grouping_var, order_var),
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat = "identity",
+                 show.legend = F) +
+        geom_text(aes(y    = target_var + 10),
+                  color    = "#4a4a49",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    } else {
+      plt <- ggplot(data, 
+                    aes(x     = grouping_var,
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat         = "identity",
+                 position     = "stack", 
+                 show.legend  = F) +
+        geom_text(aes(y    = lab_pos),
+                  color    = "#ffffff",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    }
   }
   
   plt <- plt +

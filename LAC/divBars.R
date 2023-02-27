@@ -19,8 +19,10 @@ LAC_divBars <- function(
     diverging_var,    # Variable that contains the values to diverge,
     negative_value,   # Negative value showed in the diverging_var
     colors,           # Colors to apply to line
-    labels_var,        # Variable containing the labels to show in the plot
-    added_space
+    labels_var,       # Variable containing the labels to show in the plot
+    lab_pos,          # Variable containing the overall positioning of the label
+    custom_order = F, # Do we want a customize order in the graph labels?
+    order_var = NULL  # Variable containing the custom order for the labels   
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -28,19 +30,30 @@ LAC_divBars <- function(
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
            diverging_var = all_of(diverging_var),
-           labels_var    = all_of(labels_var)) %>%
-    mutate(added_space   = if_else(diverging_var == negative_value, -20, 20))
+           labels_var    = all_of(labels_var),
+           lab_pos       = all_of(lab_pos),
+           order_var     = all_of(order_var)) %>%
+    mutate(added_space   = if_else(diverging_var == negative_value, -15, 15))
   
   # Creating ggplot
-  ggplot(data, aes(x     = grouping_var,
-                   y     = target_var,
-                   fill  = diverging_var,
-                   label = labels_var)) +
+  if (custom_order == F) {
+    chart <- ggplot(data, aes(x     = grouping_var,
+                              y     = target_var,
+                              fill  = diverging_var,
+                              label = labels_var))
+  } else {
+    chart <- ggplot(data, aes(x     = reorder(grouping_var, order_var),
+                              y     = target_var,
+                              fill  = diverging_var,
+                              label = labels_var))
+  }
+  
+  chart <- chart +
     geom_bar(stat        = "identity",
              position    = "stack",
              show.legend = F,
              width       = 0.85) +
-    geom_text(aes(y = target_var + added_space),
+    geom_text(aes(y = lab_pos + added_space),
               size     = 3.514598,
               color    = "#4a4a49",
               family   = "Lato Full",
@@ -50,7 +63,7 @@ LAC_divBars <- function(
                size       = 0.5,
                color      = "#262424") + 
     scale_fill_manual(values  = colors) +
-    scale_y_continuous(limits = c(-110,100)) +
+    scale_y_continuous(limits = c(-115,105)) +
     scale_x_discrete(limits   = rev) +
     coord_flip() +
     WJP_theme() +
@@ -63,6 +76,8 @@ LAC_divBars <- function(
                                           hjust  = 0),
           axis.title.x      = element_blank(),
           axis.title.y      = element_blank())
+  
+  return(chart)
     
 }
 

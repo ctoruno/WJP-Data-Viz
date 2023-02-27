@@ -20,7 +20,9 @@ LAC_dotsChart <- function(
     colors,           # Named vector with the colors to apply to lines
     order_var,
     diffOpac = F,     # Should the dots have different opacity levels?
-    opacities         # Named vector with opacity levels
+    opacities,        # Named vector with opacity levels
+    diffShp = F,      # Should point be displayed using different shapes?
+    shapes  = NA      # Named vector with shapes to be displayed
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -30,6 +32,7 @@ LAC_dotsChart <- function(
            labels_var    = all_of(labels_var),
            order_var     = all_of(order_var))
   
+  # Creating a strip pattern
   strips <- data %>%
     group_by(labels_var) %>%
     summarise() %>%
@@ -65,24 +68,59 @@ LAC_dotsChart <- function(
                                  "white"  = "#FFFFFF"),
                       na.value = NULL)
   
-  if (diffOpac == F) {
-    plt <- plt +
-      geom_point(data      = data,
-                 aes(x     = reorder(labels_var, -order_var),
-                     y     = target_var,
-                     color = grouping_var),
-                 size = 4,
-                 show.legend = F)
+  if (diffShp == F) {
+    
+    if (diffOpac == F) {
+      plt <- plt +
+        geom_point(data      = data,
+                   aes(x     = reorder(labels_var, -order_var),
+                       y     = target_var,
+                       color = grouping_var),
+                   size = 4,
+                   show.legend = F)
+    } else {
+      plt <- plt +
+        geom_point(data = data,
+                   aes(x     = reorder(labels_var, -order_var),
+                       y     = target_var,
+                       color = grouping_var,
+                       alpha = grouping_var),
+                   size      = 4,
+                   show.legend   = F) +
+        scale_alpha_manual(values = opacities)
+    }
+    
   } else {
-    plt <- plt +
-      geom_point(data = data,
-                 aes(x     = reorder(labels_var, -order_var),
-                     y     = target_var,
-                     color = grouping_var,
-                     alpha = grouping_var),
-                 size      = 4,
-                 show.legend   = F) +
-      scale_alpha_manual(values = opacities)
+    
+    if (diffOpac == F) {
+      plt <- plt +
+        geom_point(data      = data,
+                   aes(x     = reorder(labels_var, -order_var),
+                       y     = target_var,
+                       color = grouping_var,
+                       shape = grouping_var),
+                   fill   = NA,
+                   size   = 4,
+                   stroke = 2,
+                   show.legend = F) +
+        scale_shape_manual(values = shapes)
+      
+    } else {
+      plt <- plt +
+        geom_point(data = data,
+                   aes(x     = reorder(labels_var, -order_var),
+                       y     = target_var,
+                       color = grouping_var,
+                       shape = grouping_var,
+                       alpha = grouping_var),
+                   fill   = NA,
+                   size   = 4,
+                   stroke = 2,
+                   show.legend    = F) +
+        scale_shape_manual(values = shapes) +
+        scale_alpha_manual(values = opacities)
+    }
+    
   }
   
   plt <- plt +
