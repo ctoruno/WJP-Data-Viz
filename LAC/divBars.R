@@ -32,7 +32,7 @@ LAC_divBars <- function(
            diverging_var = all_of(diverging_var),
            labels_var    = all_of(labels_var),
            lab_pos       = all_of(lab_pos),
-           order_var     = all_of(order_var)) %>%
+           order_var     = any_of(order_var)) %>%
     mutate(added_space   = if_else(diverging_var == negative_value, -15, 15))
   
   # Creating ggplot

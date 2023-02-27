@@ -34,7 +34,7 @@ LAC_barsChart <- function(
                   labels_var    = all_of(labels_var),
                   colors_var    = all_of(colors_var),
                   lab_pos       = all_of(lab_pos),
-                  order_var     = all_of(order_var))
+                  order_var     = any_of(order_var))
   
   # Creating plot
   if(custom_order == F) {
