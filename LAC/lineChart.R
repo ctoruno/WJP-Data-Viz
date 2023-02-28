@@ -22,7 +22,11 @@ LAC_lineChart <- function(
     colors,                  # Colors to apply to lines
     repel = F,               # Do we need to repel the labels?
     transparency = F,        # Apply transparency to char?
-    transparencies = NULL    # Named vector with transparencies to apply
+    transparencies = NULL,   # Named vector with transparencies to apply
+    custom.axis = F,         # Do we want to customize the X-AXIS?
+    x.breaks    = NULL,      # Numeric vector with custom breaks for the X-Axis
+    x.labels    = NULL       # Character vector with labels for the x-axis. It has to be the same lenght than
+                             # x.breaks
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -93,15 +97,31 @@ LAC_lineChart <- function(
   }
   
   # Continuing with ggplot  
-  plt <- plt +
-    scale_color_manual(values = colors) +
-    scale_y_continuous(limits = c(0, 100),
-                       breaks = seq(0,100,20),
-                       labels = paste0(seq(0,100,20), "%")) +
-    WJP_theme() +
-    theme(panel.grid.major.x = element_blank(),
-          panel.grid.major.y = element_line(colour = "#d1cfd1"),
-          axis.title.x       = element_blank(),
-          axis.title.y       = element_blank())
-    
+  
+  if (custom.axis == F) {
+    plt <- plt +
+      scale_color_manual(values = colors) +
+      scale_y_continuous(limits = c(0, 105),
+                         breaks = seq(0,100,20),
+                         labels = paste0(seq(0,100,20), "%")) +
+      WJP_theme() +
+      theme(panel.grid.major.x = element_blank(),
+            panel.grid.major.y = element_line(colour = "#d1cfd1"),
+            axis.title.x       = element_blank(),
+            axis.title.y       = element_blank())
+  } else {
+    plt <- plt +
+      scale_color_manual(values = colors) +
+      scale_y_continuous(limits = c(0, 105),
+                         breaks = seq(0,100,20),
+                         labels = paste0(seq(0,100,20), "%")) +
+      scale_x_continuous(breaks = x.breaks,
+                         labels = x.labels) +
+      WJP_theme() +
+      theme(panel.grid.major.x = element_blank(),
+            panel.grid.major.y = element_line(colour = "#d1cfd1"),
+            axis.title.x       = element_blank(),
+            axis.title.y       = element_blank())
+  }
+  
 }
