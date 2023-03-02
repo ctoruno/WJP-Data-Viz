@@ -114,7 +114,7 @@ LAC_lineChart <- function(
                          breaks = seq(0,100,20),
                          labels = paste0(seq(0,100,20), "%")) +
       scale_x_continuous(breaks = x.breaks,
-                         expand = expansion(mult = c(0, 0.125)),
+                         expand = expansion(mult = c(0.075, 0.125)),
                          labels = x.labels,
                          guide = "axis_minor",
                          minor_breaks = sec.ticks)
