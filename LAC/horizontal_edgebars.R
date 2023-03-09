@@ -8,6 +8,7 @@ horizontal_edgebars <- function(data2plot    = NULL,
                                 bar_color    = "#2a2a94",
                                 margin_top   = 20) {
   
+  
   a <- ggplot(data = data2plot, aes(x = reorder({{x_var}},{{x_lab_pos}}),
                                     y = {{y_value}}, fill = {{group_var}})) +
     geom_bar(aes(fill = {{group_var}}),
@@ -24,8 +25,8 @@ horizontal_edgebars <- function(data2plot    = NULL,
               color = "#4a4a49",
               family = "Lato Full",
               fontface = "bold", size = 3.514598, hjust = -0.1) +
-    scale_fill_manual(values = c("value" = bar_color,
-                                 "empty_value" = "#f3f3f3")) +
+    scale_fill_manual(values = c("value" = {{bar_color}},
+                                 "empty_value" = "#f3f3f3")) + # This can be improve in the future
     scale_y_continuous(expand = expansion(mult = c(0,0.15))) +
     coord_flip(clip = "off") +
     WJP_theme() +
