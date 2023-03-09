@@ -82,7 +82,7 @@ LAC_barsChart <- function(
                   fontface = "bold")
     } else {
       plt <- ggplot(data, 
-                    aes(x     = grouping_var,
+                    aes(x     = reorder(grouping_var, order_var),
                         y     = target_var,
                         label = labels_var,
                         fill  = colors_var)) +
