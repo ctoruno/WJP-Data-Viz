@@ -22,7 +22,8 @@ LAC_divBars <- function(
     labels_var,       # Variable containing the labels to show in the plot
     lab_pos,          # Variable containing the overall positioning of the label
     custom_order = F, # Do we want a customize order in the graph labels?
-    order_var = NULL  # Variable containing the custom order for the labels   
+    order_var = NULL, # Variable containing the custom order for the labels
+    extreme = F       # Do we have extreme values?
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -32,9 +33,17 @@ LAC_divBars <- function(
            diverging_var = all_of(diverging_var),
            labels_var    = all_of(labels_var),
            lab_pos       = all_of(lab_pos),
-           order_var     = any_of(order_var)) %>%
-    mutate(added_space   = if_else(diverging_var == negative_value, -15, 15))
+           order_var     = any_of(order_var))
   
+  # Defining extra space for labels
+  if (carib == F){
+    data <- data %>%
+      mutate(added_space   = if_else(diverging_var == negative_value, -15, 15))
+  } else {
+    data <- data %>%
+      mutate(added_space   = if_else(diverging_var == negative_value, -20, 20))
+  }
+    
   # Creating ggplot
   if (custom_order == F) {
     chart <- ggplot(data, aes(x     = grouping_var,
@@ -62,8 +71,17 @@ LAC_divBars <- function(
                linetype   = "solid",
                size       = 0.5,
                color      = "#262424") + 
-    scale_fill_manual(values  = colors) +
-    scale_y_continuous(limits = c(-115,105)) +
+    scale_fill_manual(values  = colors)
+   
+  if (carib == F){
+    chart <- chart +
+      scale_y_continuous(limits = c(-105,115))
+  } else {
+    chart <- chart +
+      scale_y_continuous(limits = c(-110,125))
+  }
+    
+  chart <- chart +
     scale_x_discrete(limits   = rev) +
     coord_flip() +
     WJP_theme() +
