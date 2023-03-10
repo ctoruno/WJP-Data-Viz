@@ -36,7 +36,7 @@ LAC_divBars <- function(
            order_var     = any_of(order_var))
   
   # Defining extra space for labels
-  if (carib == F){
+  if (extreme == F){
     data <- data %>%
       mutate(added_space   = if_else(diverging_var == negative_value, -15, 15))
   } else {
@@ -73,7 +73,7 @@ LAC_divBars <- function(
                color      = "#262424") + 
     scale_fill_manual(values  = colors)
    
-  if (carib == F){
+  if (extreme == F){
     chart <- chart +
       scale_y_continuous(limits = c(-105,115))
   } else {
