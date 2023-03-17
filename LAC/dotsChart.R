@@ -76,6 +76,9 @@ LAC_dotsChart <- function(
                    aes(x     = reorder(labels_var, -order_var),
                        y     = target_var,
                        color = grouping_var),
+                   position  = position_jitter(w    = 0, 
+                                               h    = 0.15,
+                                               seed = 960903),
                    size = 4,
                    show.legend = F)
     } else {
@@ -85,6 +88,9 @@ LAC_dotsChart <- function(
                        y     = target_var,
                        color = grouping_var,
                        alpha = grouping_var),
+                   position  = position_jitter(w    = 0, 
+                                               h    = 0.15,
+                                               seed = 960903),
                    size      = 4,
                    show.legend   = F) +
         scale_alpha_manual(values = opacities)
@@ -99,6 +105,9 @@ LAC_dotsChart <- function(
                        y     = target_var,
                        color = grouping_var,
                        shape = grouping_var),
+                   position  = position_jitter(w    = 0, 
+                                               h    = 0.15,
+                                               seed = 960903),
                    fill   = NA,
                    size   = 4,
                    stroke = 2,
@@ -113,6 +122,9 @@ LAC_dotsChart <- function(
                        color = grouping_var,
                        shape = grouping_var,
                        alpha = grouping_var),
+                   position  = position_jitter(w    = 0, 
+                                               h    = 0.15,
+                                               seed = 960903),
                    fill   = NA,
                    size   = 4,
                    stroke = 2,
