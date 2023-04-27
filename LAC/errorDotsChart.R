@@ -1,10 +1,11 @@
 errorDotsChart <- function(data2plot = data2plot, 
                           labels = "labels", 
                           category = "category", 
-                          values = "values", 
-                          lower = "lower",
-                          upper = "upper", 
-                          group = "party") {
+                          values = values, 
+                          lower = lower,
+                          upper = upper, 
+                          group = "party",
+                          colors4plot = colors4plot) {
   
   data2plot <- data2plot %>%
     rename(group = all_of(group),
