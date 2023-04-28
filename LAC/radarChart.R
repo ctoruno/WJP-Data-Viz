@@ -19,7 +19,7 @@ LAC_radarChart <- function(
     label_var,        # Variable containing the labels to be displayed
     order_var,        # Variable containing the display order of categories
     colors,           # Colors to apply to lines. First code will be applied to percentages in labels
-    latestYear = latestYear,       # Category to show in the radar
+    latestYear = latestYear       # Category to show in the radar
 ){
   
   # Renaming variables in the data frame to match the function naming
