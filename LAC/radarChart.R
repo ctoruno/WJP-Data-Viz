@@ -72,12 +72,17 @@ LAC_radarChart <- function(
                                            distinct(axis_var) %>% 
                                            pull(axis_var),
                                          6)) %>%
-    bind_cols(map_df(seq(0, 1, 0.2) + central_distance, text_coords) %>% distinct(r, .keep_all = T) %>% select(-r))
+    bind_cols(map_df(seq(0, 1, 0.2) + central_distance, 
+                     text_coords) %>% 
+                distinct(r, .keep_all = T) %>% 
+                select(-r))
   
   # Generating data points
   rescaled_coords <- function(r, n_axis = nvertix){
     fi <- seq(0, 2*pi, (1/n_axis)*2*pi) + pi/2
-    tibble(r, fi) %>% mutate(x = r*cos(fi), y = r*sin(fi)) %>% select(-fi)
+    tibble(r, fi) %>% 
+      mutate(x = r*cos(fi), y = r*sin(fi)) %>% 
+      select(-fi)
   }
   
   rescaled_data <- data %>% 
@@ -87,7 +92,7 @@ LAC_radarChart <- function(
                          distinct(axis_var) %>% 
                          pull(axis_var)) %>%
                 mutate(axis_var  = "copy",
-                       order_var = 9)) %>%
+                       order_var = nvertix)) %>%
     group_by(year) %>%
     arrange(order_var) %>%
     mutate(coords = rescaled_coords(target_var + central_distance)) %>%
