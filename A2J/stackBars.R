@@ -1,4 +1,4 @@
-barschart <- function(data2plot = data2plot,
+stackBars <- function(data2plot = data2plot,
                       country  = country,
                       category = category,
                       values   = values,
