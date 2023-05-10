@@ -17,7 +17,7 @@ barschart <- function(data2plot = data2plot,
                        position = "right", expand = c(0,0)) +
     scale_fill_manual(values = colors4plot) +
     geom_text(data = data2text, 
-              aes(y    = 115, x = {{country}}, label = {{label_value}}),
+              aes(y    = 120, x = {{country}}, label = {{label_value}}),
               color    = "black",
               family   = "Lato Full",
               fontface = "bold") +
