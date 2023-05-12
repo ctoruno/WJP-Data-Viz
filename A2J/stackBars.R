@@ -9,7 +9,7 @@ stackBars <- function(data2plot = data2plot,
   
   ggplot() + 
     geom_col(data = data2plot,
-             aes(x = {{country}}, y = values, fill = category), 
+             aes(x = {{country}}, y = {{values}}, fill = {{category}}), 
              width = 0.5,
              show.legend = F) +
     scale_y_continuous(limits = c(0, 130),
