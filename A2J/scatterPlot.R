@@ -4,6 +4,7 @@ scatterPlot <- function(data2plot = data2plot,
                       category   = problem,
                       colors4plot = colors4plot
                       ) {
+  
   ggplot() + 
   geom_point(data = data2plot,
              aes(y = {{yvariable}}, 
