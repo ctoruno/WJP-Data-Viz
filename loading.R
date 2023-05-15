@@ -33,5 +33,6 @@ loadVIZ <- function(set) {
   
   if (set == "A2J") {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/stackBars.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/scatterPlot.R")
   }
 }
