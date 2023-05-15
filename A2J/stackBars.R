@@ -5,11 +5,12 @@ stackBars <- function(data2plot = data2plot,
                       data2text = data2text,
                       label_value = prop,
                       colors4plot = colors4plot,
-                      axis_label = "") {
+                      axis_label = "",
+                      order_values = order_values) {
   
   ggplot() + 
     geom_col(data = data2plot,
-             aes(x = {{country}}, y = {{values}}, fill = {{category}}), 
+             aes(x = reorder({{country}}, {{-order_values}}), y = {{values}}, fill = {{category}}), 
              width = 0.5,
              show.legend = F) +
     scale_y_continuous(limits = c(0, 130),
@@ -19,7 +20,7 @@ stackBars <- function(data2plot = data2plot,
                        expand = c(0,0)) +
     scale_fill_manual(values = colors4plot) +
     geom_text(data = data2text, 
-              aes(y    = 120, x = {{country}}, label = {{label_value}}),
+              aes(y    = 120, x = reorder({{country}}, {{-order_values}}), label = {{label_value}}),
               color    = "#222221",
               family   = "Lato Full",
               fontface = "bold") +
