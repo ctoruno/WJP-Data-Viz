@@ -23,7 +23,7 @@ stackBars <- function(data2plot = data2plot,
               aes(y    = 120, x = reorder({{country}}, {{-order_values}}), label = {{label_value}}),
               color    = "#222221",
               family   = "Lato Full",
-              fontface = "bold") +
+              fontface = "bold", size = 2.811678) +
     coord_flip()  +
     WJP_theme() +
     theme(panel.grid.major.y = element_blank(),
@@ -32,6 +32,10 @@ stackBars <- function(data2plot = data2plot,
           axis.title.x       = element_blank(),
           axis.text.y        = element_text(hjust = 0),
           axis.line.y        = element_line(color    = "#5e5c5a",
-                                            linetype = "solid"))
+                                            linetype = "solid"),
+          axis.text.y        = element_text(family   = "Lato Full",
+                                            face     = "plain",
+                                            size     = 2.811678*.pt,
+                                            color    = "#222221"))
   
 }
