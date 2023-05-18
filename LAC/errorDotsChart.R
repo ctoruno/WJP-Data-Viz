@@ -101,7 +101,7 @@ errorDotsChart <- function(data2plot = data2plot,
   
   return(a)
   
-  } if(custom_order == F) {
+  } else {
     
     b <- ggplot() +
       geom_blank(data       = data2plot,
