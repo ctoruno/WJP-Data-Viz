@@ -105,8 +105,8 @@ errorDotsChart <- function(data2plot = data2plot,
     
     b <- ggplot() +
       geom_blank(data       = data2plot,
-                 aes(x      = labels,
-                     y      = reorder({{values}},-{{order_values}}),
+                 aes(x      = reorder(labels, -{{order_values}}),
+                     y      = {{values}},
                      group  = group,
                      color  = group)
       ) +
@@ -122,13 +122,13 @@ errorDotsChart <- function(data2plot = data2plot,
                         na.value = NULL) +
       geom_point(data = data2plot,
                  size = 3,
-                 aes(x      = labels,
-                     y      = reorder({{values}},-{{order_values}}),
+                 aes(x      = reorder(labels, -{{order_values}}),
+                     y      = {{values}},
                      color  = group)
       ) +
       geom_errorbar(data = data2plot,
-                    aes(x      = labels,
-                        y      = reorder({{values}},-{{order_values}}),
+                    aes(x      = reorder(labels, -{{order_values}}),
+                        y      = {{values}},
                         color  = group,
                         ymin   = lower,
                         ymax   = upper), 
