@@ -1,8 +1,9 @@
 scatterPlot <- function(data2plot = data2plot,
                       xvariable  = Incidence,
                       yvariable = Severity,
-                      category   = problem,
-                      colors4plot = colors4plot
+                      category   = problem_code,
+                      colors4plot = colors4plot,
+                      labels = labelProblem
                       ) {
   
   ggplot() + 
@@ -15,6 +16,12 @@ scatterPlot <- function(data2plot = data2plot,
               aes(y = {{yvariable}},
                   x = {{xvariable}}),
               method = "lm", se = T, color = "black", linetype="dashed", size = 1) +
+    geom_text(data = data2plot, 
+              aes(y    = {{yvariable}}, x = {{xvariable}}, label = {{labels}}),
+              color    = "#222221",
+              family   = "Lato Full",
+              fontface = "bold", size = 2.811678, check_overlap = F,
+              vjust = 0, nudge_y = 0.25) +
   labs(x = "Average Incidence",
        y = "Average Severity") + 
   scale_y_continuous(limits = c(0, 10.5),
