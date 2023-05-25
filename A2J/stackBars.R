@@ -13,7 +13,7 @@ stackBars <- function(data2plot = data2plot,
              aes(x = reorder({{country}}, -{{order_values}}), y = {{values}}, fill = {{category}}), 
              width = 0.5,
              show.legend = F) +
-    scale_y_continuous(limits = c(0, 130),
+    scale_y_continuous(limits = c(0, 140),
                        breaks = c(seq(0,100,10), 120),
                        labels = c("0%", " ", "20%", " ", "40%", " ", "60%", " ", "80%", " ", "100%", 
                                   {{axis_label}}), 
