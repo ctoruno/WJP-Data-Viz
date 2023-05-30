@@ -36,7 +36,7 @@ stackBars <- function(data2plot = data2plot,
           axis.text.y        = element_markdown (family   = "Lato Full",
                                                  face     = "plain",
                                                  size     = 2.811678*.pt,
-                                                 hjust = 0)
+                                                 hjust = 1)
     )
   
 }
