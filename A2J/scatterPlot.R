@@ -23,7 +23,8 @@ scatterPlot <- function(data2plot = data2plot,
               fontface = "bold", size = 2.811678, check_overlap = F,
               vjust = 0, nudge_y = 0.25) +
   labs(x = "Average prevalence of different \ntypes of legal problems in the \nlast two years",
-       y = "Average perceived severity") + 
+       y = "Average perceived severity",
+       note = "Note: Dotted line represents linear regression line") + 
   scale_y_continuous(limits = c(0, 10.5),
                      breaks = seq(0,10,2),
                      labels = paste0(seq(0,10,2)),
