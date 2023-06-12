@@ -35,5 +35,11 @@ scatterPlot <- function(data2plot = data2plot,
                      position = "bottom", expand = c(0,0)) +
   scale_color_manual(values = colors4plot) +
   WJP_theme() +
-  theme(axis.line        = element_line(color    = "#5e5c5a", linetype = "solid"))
+  theme(axis.line        = element_line(color    = "#5e5c5a", linetype = "solid"),
+        plot.caption     = element_text(family = "Lato Full",
+                                        face   = "plain",
+                                        size   = 3.514598*.pt,
+                                        color  = "#524F4C", 
+                                        vjust = 0, hjust = 0)
+  )
 }
