@@ -40,6 +40,6 @@ scatterPlot <- function(data2plot = data2plot,
                                         face   = "plain",
                                         size   = 2.460219*.pt,
                                         color  = "#524F4C", 
-                                        vjust = 0, hjust = 0)
+                                        vjust = 1, hjust = 0)
   )
 }
