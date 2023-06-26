@@ -35,5 +35,6 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/stackBars.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/scatterPlot.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/choroplethMaps.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/divBars.R")
   }
 }
