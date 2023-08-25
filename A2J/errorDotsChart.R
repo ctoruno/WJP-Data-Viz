@@ -45,8 +45,6 @@ errorDotsChart <- function(
     select(-cat) %>%
     filter(fill != "white")
   
-  print(data2plot)
-  
     # Plotting chart
     ggplot() +
       geom_blank(data       = data2plot,
