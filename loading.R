@@ -37,5 +37,6 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/choroplethMaps.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/divBars.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/dumbellChart.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/errorDotsChart.R")
   }
 }
