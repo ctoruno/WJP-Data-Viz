@@ -24,7 +24,8 @@ LAC_barsChart <- function(
     lab_pos = NULL,    # Variable containing the Y coordinates of the stacked labels
     expand  = F,       # Do we need to give extra space for the labels?
     custom_order = F,  # Do we want a customize order in the graph labels?
-    order_var = NULL   # Variable containing the custom order for the labels
+    order_var = NULL,
+    width = 0.9# Variable containing the custom order for the labels
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -46,7 +47,7 @@ LAC_barsChart <- function(
                         label = labels_var,
                         fill  = colors_var)) +
         geom_bar(stat = "identity",
-                 show.legend = F) +
+                 show.legend = F, width = width) +
         geom_text(aes(y    = target_var + 10),
                   color    = "#4a4a49",
                   family   = "Lato Full",
@@ -59,7 +60,7 @@ LAC_barsChart <- function(
                         fill  = colors_var)) +
         geom_bar(stat         = "identity",
                  position     = "stack", 
-                 show.legend  = F) +
+                 show.legend  = F,  width = width) +
         geom_text(aes(y    = lab_pos),
                   color    = "#ffffff",
                   family   = "Lato Full",
@@ -75,7 +76,7 @@ LAC_barsChart <- function(
                         label = labels_var,
                         fill  = colors_var)) +
         geom_bar(stat = "identity",
-                 show.legend = F) +
+                 show.legend = F,  width = width) +
         geom_text(aes(y    = target_var + 10),
                   color    = "#4a4a49",
                   family   = "Lato Full",
@@ -88,7 +89,7 @@ LAC_barsChart <- function(
                         fill  = colors_var)) +
         geom_bar(stat         = "identity",
                  position     = "stack", 
-                 show.legend  = F) +
+                 show.legend  = F,  width = width) +
         geom_text(aes(y    = lab_pos),
                   color    = "#ffffff",
                   family   = "Lato Full",
