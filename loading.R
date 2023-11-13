@@ -39,4 +39,8 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/dumbellChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/A2J/errorDotsChart.R")
   }
+  
+  if (set == "NM") {
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/NM/divBars.R")
+  }
 }
