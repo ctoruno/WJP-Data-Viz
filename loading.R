@@ -43,5 +43,6 @@ loadVIZ <- function(set) {
   if (set == "NM") {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/NM/divBars.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/dotsChart.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/lineChart.R")
   }
 }
