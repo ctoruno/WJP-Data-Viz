@@ -68,7 +68,7 @@ LAC_radarChart <- function(
   # Y-Axis labels
     axis_measure <- tibble(
       r = rep(seq(0, 1, 0.2), each = nvertix),
-      parameter = rep(data %>% filter(order_var == 1) %>% distinct(axis_var) %>% pull(axis_var), each = 6)
+      parameter = rep(data %>% filter(order_var == 1) %>% distinct(axis_var) %>% pull(axis_var), each = nvertix)
     )
 
 
