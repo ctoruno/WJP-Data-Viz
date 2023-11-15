@@ -46,5 +46,6 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/lineChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/radarChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/lollipop_chart.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/barsChart.R")
   }
 }
