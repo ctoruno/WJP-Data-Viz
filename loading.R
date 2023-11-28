@@ -26,9 +26,8 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/logit_demo.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/horizontal_edgebars.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/errorDotsChart.R")
-    
-    
-    
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/NM/dotsChart.R")
+  
   }
   
   if (set == "A2J") {
