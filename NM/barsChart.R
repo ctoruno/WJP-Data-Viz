@@ -11,7 +11,7 @@ NM_barsChart <- function(
   # x.breaks,
   sec.ticks   = NULL       # Numeric vector containing the minor breaks
 ) {
-  # Renaming variables in the data frame to match the function naming
+  
   data <- data %>%
     rename(target_var    = all_of(target_var),
            grouping_var  = all_of(grouping_var),
@@ -27,8 +27,8 @@ NM_barsChart <- function(
     geom_bar(stat = "identity",
              position = "dodge",
              color = "black") +
-    geom_text(position = position_dodge(width = 0.9),    # Adjust width as needed
-              aes(y = target_var + 2),    # Adjust vertical position as needed
+    geom_text(position = position_dodge(width = 0.9),    
+              aes(y = target_var + 2),    
               family      = "Lato Full",
               fontface    = "bold",
               size        = 3.514598,
