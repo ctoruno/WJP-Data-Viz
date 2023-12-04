@@ -11,8 +11,7 @@ LAC_groupedBarChart <- function(
   transparencies = NULL,   # Named vector with transparencies to apply
   custom.axis = F,         # Do we want to customize the X-AXIS?
   x.breaks = NULL,         # Numeric vector with custom breaks for the X-Axis
-  x.labels = NULL,         # Character vector with labels for the x-axis. It has to be the same length than x.breaks,
-  sec.ticks = NULL         # Numeric vector containing the minor breaks
+  x.labels = NULL          # Character vector with labels for the x-axis. It has to be the same length than x.breaks,
 ) {
   
   # Renaming variables in the data frame to match the function naming
@@ -71,37 +70,18 @@ LAC_groupedBarChart <- function(
   }
   
   # Continuing with ggplot  
-  
-  if (custom.axis == F) {
-    plt <- plt +
-      scale_fill_manual(values = colors) +
-      scale_y_continuous(limits = c(0, 105),
-                         expand = c(0, 0),
-                         breaks = seq(0, 100, 20),
-                         labels = paste0(seq(0, 100, 20), "%"))
-  } else {
-    plt <- plt +
-      scale_fill_manual(values = colors) +
-      scale_y_continuous(limits = c(0, 105),
-                         expand = c(0, 0),
-                         breaks = seq(0, 100, 20),
-                         labels = paste0(seq(0, 100, 20), "%")) +
-      scale_x_discrete(breaks = x.breaks,  # Use scale_x_discrete for discrete x-axis
-                       labels = x.labels,
-                       guide = "axis_minor",
-                       minor_breaks = sec.ticks)
-  }
-  
   plt <- plt +
-    WJP_theme() +
-    theme(panel.grid.major.x = element_blank(),
-          panel.grid.major.y = element_line(colour = "#d1cfd1"),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
-          axis.line.x = element_line(color = "#d1cfd1"),
-          axis.ticks.x = element_line(color = "#d1cfd1",
-                                      linetype = "solid"),
-          ggh4x.axis.ticks.length.minor = rel(1))
+    scale_fill_manual(values = colors) +
+    scale_y_continuous(limits = c(0, 105),
+                       expand = c(0, 0),
+                       breaks = seq(0, 100, 20),
+                       labels = paste0(seq(0, 100, 20), "%")) +
+    theme_minimal()  # Change to the theme you prefer
+  
+  if (custom.axis) {
+    plt <- plt +
+      scale_x_discrete(breaks = x.breaks, labels = x.labels)
+  }
   
   return(plt)
 }
