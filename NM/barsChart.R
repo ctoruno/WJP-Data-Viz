@@ -1,4 +1,4 @@
-NM_barsChart <- function(
+LAC_groupedBarChart <- function(
     data,                    # Data frame with data
     target_var,              # Variable that will supply the values to plot
     grouping_var,            # Variable containing the grouping values (Axis Labels)
@@ -11,10 +11,9 @@ NM_barsChart <- function(
     transparencies = NULL,   # Named vector with transparencies to apply
     custom.axis = F,         # Do we want to customize the X-AXIS?
     x.breaks    = NULL,      # Numeric vector with custom breaks for the X-Axis
-    x.labels    = NULL,      # Character vector with labels for the x-axis. It has to be the same length than
-                             # x.breaks,
+    x.labels    = NULL,      # Character vector with labels for the x-axis. It has to be the same length than x.breaks,
     sec.ticks   = NULL       # Numeric vector containing the minor breaks
-) {
+){
   
   # Renaming variables in the data frame to match the function naming
   data <- data %>%
@@ -28,56 +27,45 @@ NM_barsChart <- function(
                 aes(x     = grouping_var,
                     y     = target_var,
                     fill  = colors_var,
-                    label = labels_var,
-                    group = ngroups))
+                    label = labels_var))
     
   if (transparency == F) {
     plt <- plt +
       geom_bar(stat = "identity",
                position = "dodge",
-               show.legend = F) 
-      
+               show.legend = F) +
+      geom_text(position = position_dodge(width = 0.9),
+                vjust = -0.5,
+                size = 3.514598,
+                show.legend = F)
   } else {
     plt <- plt +
-      geom_bar(stat = "identity",
+      geom_bar(aes(alpha   = colors_var),
+               stat = "identity",
                position = "dodge",
-               aes(alpha   = colors_var),
                show.legend = F) +
+      geom_text(aes(alpha   = colors_var),
+                position = position_dodge(width = 0.9),
+                vjust = -0.5,
+                size = 3.514598,
+                show.legend = F) +
       scale_alpha_manual(values = transparencies)
   }
   
-  if (repel == F) {
-    
-    # Applying regular geom_text
+  if (repel) {
     plt <- plt +
-      geom_text(aes(y     = target_var + 5,  
-                    x     = grouping_var,
-                    label = labels_var),
-                family      = "Lato Full",
-                fontface    = "bold",
-                size        = 3.514598,
-                show.legend = F)
-    
-  } else {
-    
-    # Applying ggrepel for a better visualization of plots
-    plt <- plt +
-      geom_text_repel(mapping = aes(y     = target_var,
-                                    x     = grouping_var,
-                                    label = labels_var),
+      geom_text_repel(mapping = aes(label = labels_var),
+                      position = position_dodge(width = 0.9),
                       family      = "Lato Full",
                       fontface    = "bold",
                       size        = 3.514598,
                       show.legend = F,
-                      
-                      # Additional options from ggrepel package:
                       min.segment.length = 1000,
                       seed               = 42,
                       box.padding        = 0.5,
                       direction          = "y",
                       force              = 5,
                       force_pull         = 1)
-      
   }
   
   # Continuing with ggplot  
@@ -115,4 +103,4 @@ NM_barsChart <- function(
           ggh4x.axis.ticks.length.minor = rel(1))
   
   return(plt)
-} 
+}
