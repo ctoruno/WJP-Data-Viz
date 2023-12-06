@@ -1,82 +1,134 @@
-LAC_groupedBarChart <- function(
-    data,                    # Data frame with data
-    target_var,              # Variable that will supply the values to plot
-    grouping_var,            # Variable containing the grouping values (Axis Labels)
-    labels_var,              # Variable containing the labels to show in the plot
-    colors_var,              # Variable containing the groups by color
-    colors,                  # Colors to apply to bars
-    repel = FALSE,           # Do we need to repel the labels?
-    transparency = FALSE,    # Apply transparency to chart?
-    transparencies = NULL,   # Named vector with transparencies to apply
-    custom.axis = FALSE,     # Do we want to customize the X-AXIS?
-    x.breaks    = NULL,      # Numeric vector with custom breaks for the X-Axis
-    x.labels    = NULL       # Character vector with labels for the x-axis. It has to be the same length than x.breaks,
-){
+NM_barsChart <- function(
+    data,              # Data frame with data
+    target_var,        # Variable that will supply the values to plot
+    grouping_var,      # Variable containing the grouping values (Axis Labels)
+    labels_var,        # Variable containing the labels to display in plot
+    colors_var,        # Variable containing the groups by color
+    colors,            # Colors to apply to bars
+    direction,         # Should the bars go in a "horizontal" or "vertical" way?
+    stacked = F,       # Stack bars on top of each other?
+    lab_pos = NULL,    # Variable containing the Y coordinates of the stacked labels
+    expand  = F,       # Do we need to give extra space for the labels?
+    custom_order = F,  # Do we want a customize order in the graph labels?
+    order_var = NULL,
+    width = 0.9       # Variable containing the custom order for the labels
+) {
   
   # Renaming variables in the data frame to match the function naming
   data <- data %>%
-    rename(target_var    = all_of(target_var),
-           grouping_var  = all_of(grouping_var),
-           labels_var    = all_of(labels_var),
-           colors_var     = all_of(colors_var))
+    dplyr::rename(target_var    = all_of(target_var),
+                  grouping_var  = all_of(grouping_var),
+                  labels_var    = all_of(labels_var),
+                  colors_var    = all_of(colors_var),
+                  lab_pos       = all_of(lab_pos),
+                  order_var     = any_of(order_var))
   
-  # Creating ggplot
-  plt <- ggplot(data, 
-                aes(x     = grouping_var,
-                    y     = target_var,
-                    fill  = colors_var,
-                    label = labels_var))
+  # Creating plot
+  if(custom_order == F) {
     
-  if (transparency == FALSE) {
-    plt <- plt +
-      geom_bar(stat = "identity",
-               position = "dodge",
-               show.legend = FALSE) +
-      geom_text(position = position_dodge(width = 0.9),
-                vjust = -0.5,
-                size = 3.514598,
-                show.legend = FALSE)
+    if (stacked == F) {
+      plt <- ggplot(data, 
+                    aes(x     = grouping_var,
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat = "identity",
+                 show.legend = F, width = width) +
+        geom_text(position = position_stack(vjust = 0.5),
+                  aes(label = scales::percent(target_var / sum(data[[target_var]]), accuracy = 1),
+                      group = labels_var),
+                  color    = "#4a4a49",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    } else {
+      plt <- ggplot(data, 
+                    aes(x     = grouping_var,
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat         = "identity",
+                 position     = "stack", 
+                 show.legend  = F,  width = width) +
+        geom_text(position = position_stack(vjust = 0.5),
+                  aes(label = scales::percent(target_var / sum(data[[target_var]]), accuracy = 1),
+                      group = labels_var),
+                  color    = "#ffffff",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    }
+    
   } else {
-    plt <- plt +
-      geom_bar(aes(alpha   = colors_var),
-               stat = "identity",
-               position = "dodge",
-               show.legend = FALSE) +
-      geom_text(aes(alpha   = colors_var),
-                position = position_dodge(width = 0.9),
-                vjust = -0.5,
-                size = 3.514598,
-                show.legend = FALSE) +
-      scale_alpha_manual(values = transparencies)
+    
+    if (stacked == F) {
+      plt <- ggplot(data, 
+                    aes(x     = reorder(grouping_var, order_var),
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat = "identity",
+                 show.legend = F,  width = width) +
+        geom_text(position = position_stack(vjust = 0.5),
+                  aes(label = scales::percent(target_var / sum(data[[target_var]]), accuracy = 1),
+                      group = labels_var),
+                  color    = "#4a4a49",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    } else {
+      plt <- ggplot(data, 
+                    aes(x     = reorder(grouping_var, order_var),
+                        y     = target_var,
+                        label = labels_var,
+                        fill  = colors_var)) +
+        geom_bar(stat         = "identity",
+                 position     = "stack", 
+                 show.legend  = F,  width = width) +
+        geom_text(position = position_stack(vjust = 0.5),
+                  aes(label = scales::percent(target_var / sum(data[[target_var]]), accuracy = 1),
+                      group = labels_var),
+                  color    = "#ffffff",
+                  family   = "Lato Full",
+                  fontface = "bold")
+    }
   }
   
-  if (repel) {
-    plt <- plt +
-      geom_text_repel(mapping = aes(label = labels_var),
-                      position = position_dodge(width = 0.9),
-                      family      = "Lato Full",
-                      fontface    = "bold",
-                      size        = 3.514598,
-                      show.legend = FALSE,
-                      min.segment.length = 1000,
-                      seed               = 42,
-                      box.padding        = 0.5,
-                      direction          = "y",
-                      force              = 5,
-                      force_pull         = 1)
-  }
+  plt <- plt +
+    labs(y = "% of respondents") +
+    scale_fill_manual(values = colors)
   
-  if (custom.axis == FALSE) {
-    plt <- plt +
-      scale_fill_manual(values = colors) +
-      theme_minimal()
+  if (expand == F) {
+    uplimitV = 100
+    uplimitH = 105
   } else {
-    plt <- plt +
-      scale_fill_manual(values = colors) +
-      scale_x_discrete(breaks = x.breaks,
-                       labels = x.labels) +
-      theme_minimal()
+    uplimitV = 110
+    uplimitH = 105
   }
   
+  if (direction == "vertical") {
+    plt  <- plt +
+      scale_y_continuous(limits = c(0, uplimitV),
+                         breaks = seq(0,100,20),
+                         labels = paste0(seq(0,100,20), "%")) +
+      WJP_theme() +
+      theme(panel.grid.major.x = element_blank(),
+            panel.grid.major.y = element_line(color = "#D0D1D3"),
+            axis.title.x       = element_blank())
+  }
+  
+  if (direction == "horizontal") {
+    plt  <- plt +
+      scale_y_continuous(limits = c(0, uplimitH),
+                         breaks = seq(0,100,20),
+                         labels = paste0(seq(0,100,20), "%"),
+                         position = "right") +
+      scale_x_discrete(limits = rev) +
+      coord_flip() +
+      WJP_theme() +
+      theme(panel.grid.major.y = element_blank(),
+            panel.grid.major.x = element_line(color = "#D0D1D3"),
+            axis.title.y       = element_blank(),
+            axis.title.x       = element_blank(),
+            axis.text.y        = element_text(hjust = 0))
+  }
+    
   return(plt)
 }
