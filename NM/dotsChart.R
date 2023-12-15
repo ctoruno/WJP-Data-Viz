@@ -8,8 +8,25 @@ NM_dotsChart <- function(
     diffOpac = F,     # Should the dots have different opacity levels?
     opacities,        # Named vector with opacity levels
     diffShp = F,      # Should point be displayed using different shapes?
-    shapes  = NA      # Named vector with shapes to be displayed
+    shapes  = NA,      # Named vector with shapes to be displayed
+    draw_ci = T,
+    y_upper = 100,
+    dsize = 4,
+    fsize = 10,
+    fsize2 = 10
 ){
+  
+  if (y_upper == 100) {
+    upbound  <- 100
+    ylimits  <- c(0,100)
+    ybreaks  <- seq(0, 100, 20)
+  }
+  if (y_upper == 1) {
+    upbound  <- 1
+    ylimits  <- c(0,1)
+    ybreaks  <- seq(0, 1, 0.2)
+  }
+  
   
   # Renaming variables in the data frame to match the function naming
   data <- data %>%
@@ -23,7 +40,7 @@ NM_dotsChart <- function(
     group_by(labels_var) %>%
     summarise() %>%
     mutate(ymin = 0,
-           ymax = 100,
+           ymax = upbound,
            xposition = rev(1:nrow(.)),
            xmin = xposition - 0.5,
            xmax = xposition + 0.5,
@@ -38,28 +55,34 @@ NM_dotsChart <- function(
   
   # Creating ggplot
   plt <- ggplot() +
-    geom_blank(data      = data,
-               aes(x     = reorder(labels_var, -order_var),
-                   y     = target_var,
-                   label = labels_var,
-                   color = grouping_var)) +
-    geom_ribbon(data      = strips,
-                aes(x     = x,
-                    ymin  = ymin,
-                    ymax  = ymax,
-                    group = xposition,
-                    fill  = fill),
-                show.legend = F) +
-    geom_errorbar(data    = data, 
-                  aes(x   = reorder(labels_var, -order_var),
-                      y   = target_var,
-                      ymin = target_var - sd(target_var),
-                      ymax = target_var + sd(target_var),
-                      color = grouping_var),
-                  width = 0.2,  # Set the width of the error bars
+    geom_blank(data       = data,
+               aes(x      = reorder(labels_var, -order_var),
+                   y      = target_var,
+                   label  = labels_var,
+                   color  = grouping_var))
+  
+  if (draw_ci == T){
+    plt <- plt +
+      geom_ribbon(data      = strips,
+                  aes(x     = x,
+                      ymin  = ymin,
+                      ymax  = ymax,
+                      group = xposition,
+                      fill  = fill),
                   show.legend = F) +
-    scale_fill_manual(values = c("grey"  = "#EBEBEB",
-                                 "white"  = "#FFFFFF"),
+      geom_errorbar(data    = data, 
+                    aes(x   = reorder(labels_var, -order_var),
+                        y   = target_var,
+                        ymin  = target_var - sd(target_var),
+                        ymax  = target_var + sd(target_var),
+                        color = grouping_var),
+                    width = 0.2,  # Set the width of the error bars
+                    show.legend = F)
+  }
+  
+  plt <- plt +
+    scale_fill_manual(values  = c("grey"  = "#EBEBEB",
+                                  "white" = "#FFFFFF"),
                       na.value = NULL)
   
   if (diffShp == F) {
@@ -70,7 +93,7 @@ NM_dotsChart <- function(
                    aes(x     = reorder(labels_var, -order_var),
                        y     = target_var,
                        color = grouping_var),
-                   size = 4,
+                   size = dsize,
                    show.legend = F)
     } else {
       plt <- plt +
@@ -79,8 +102,8 @@ NM_dotsChart <- function(
                        y     = target_var,
                        color = grouping_var,
                        alpha = grouping_var),
-                   size      = 4,
-                   show.legend   = F) +
+                   size      = dsize,
+                   show.legend    = F) +
         scale_alpha_manual(values = opacities)
     }
     
@@ -94,7 +117,7 @@ NM_dotsChart <- function(
                        color = grouping_var,
                        shape = grouping_var),
                    fill   = NA,
-                   size   = 4,
+                   size   = dsize,
                    stroke = 2,
                    show.legend = F) +
         scale_shape_manual(values = shapes)
@@ -108,7 +131,7 @@ NM_dotsChart <- function(
                        shape = grouping_var,
                        alpha = grouping_var),
                    fill   = NA,
-                   size   = 4,
+                   size   = dsize,
                    stroke = 2,
                    show.legend    = F) +
         scale_shape_manual(values = shapes) +
@@ -119,9 +142,9 @@ NM_dotsChart <- function(
   
   plt <- plt +
     scale_color_manual(values = colors) +
-    scale_y_continuous(limits = c(0,100),
-                       breaks = seq(0,100,20),
-                       labels = paste0(seq(0,100,20),
+    scale_y_continuous(limits = ylimits,
+                       breaks = ybreaks,
+                       labels = paste0(ybreaks,
                                        "%"),
                        position = "right") +
     coord_flip() +
@@ -131,8 +154,12 @@ NM_dotsChart <- function(
           panel.grid.major.y = element_blank(),
           panel.background   = element_blank(), 
           panel.ontop = T,
+          axis.text.x = element_text(color = "#222221",
+                                     hjust = 0,
+                                     size  = fsize2),
           axis.text.y = element_text(color = "#222221",
-                                     hjust = 0))
+                                     hjust = 0,
+                                     size  = fsize))
     
   return(plt)
   
