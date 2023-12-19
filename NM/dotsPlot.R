@@ -8,7 +8,7 @@ NM_dotsPlot <- function(
     diffOpac = F,     # Should the dots have different opacity levels?
     opacities,        # Named vector with opacity levels
     diffShp = F,      # Should point be displayed using different shapes?
-    shapes  = NA,      # Named vector with shapes to be displayed
+    shapes  = NA,     # Named vector with shapes to be displayed
     draw_ci = T,
     y_upper = 100,
     dsize = 4,
@@ -26,7 +26,6 @@ NM_dotsPlot <- function(
     ylimits  <- c(0,1)
     ybreaks  <- seq(0, 1, 0.2)
   }
-  
   
   # Renaming variables in the data frame to match the function naming
   data <- data %>%
@@ -52,40 +51,22 @@ NM_dotsPlot <- function(
     select(-cat) %>%
     filter(fill != "white")
     
-  
-  # Creating ggplot
-  plt <- ggplot() +
-    geom_blank(data       = data,
-               aes(x      = reorder(labels_var, -order_var),
-                   y      = target_var,
-                   label  = labels_var,
-                   color  = grouping_var))
-  
-    if (draw_ci == T){
-        # Calculate mean and standard error for each group
-        summary_data <- data %>%
-            group_by(!!sym(grouping_var), !!sym(labels_var)) %>%
-            summarise(mean = mean(!!sym(target_var), na.rm = TRUE),
-                      sd = sd(!!sym(target_var), na.rm = TRUE),
-                      count = n()) %>%
-            mutate(se = sd / sqrt(count),
-                   lower = mean - qt(1 - (1 - ci_level) / 2, count - 1) * se,
-                   upper = mean + qt(1 - (1 - ci_level) / 2, count - 1) * se)
+    # Creating ggplot
+    plt <- ggplot() +
+        geom_blank(data = data,
+                   aes(x = reorder(labels_var, -order_var),
+                       y = target_var,
+                       label = labels_var,
+                       color = grouping_var))
 
+    if (draw_ci == T && "ci_lower" %in% names(data) && "ci_upper" %in% names(data)){
         plt <- plt +
-            geom_ribbon(data      = strips,
-                        aes(x     = x,
-                            ymin  = ymin,
-                            ymax  = ymax,
-                            group = xposition,
-                            fill  = fill),
-                        show.legend = F) +
-            geom_errorbar(data    = summary_data, 
-                          aes(x   = !!sym(labels_var),
-                              ymin  = lower,
-                              ymax  = upper,
-                              color = !!sym(grouping_var)),
-                          width = 0.2,  
+            geom_errorbar(data = data, 
+                          aes(x = reorder(labels_var, -order_var),
+                              ymin = ci_lower,
+                              ymax = ci_upper,
+                              color = grouping_var),
+                          width = 0.2,  # Set the width of the error bars
                           show.legend = F)
     }
   
