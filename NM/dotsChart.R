@@ -32,6 +32,7 @@ NM_dotsChart <- function(
   # Renaming variables in the data frame to match the function naming
   data <- data %>%
     rename(target_var    = all_of(target_var),
+           sd_var        = all_of(sd_var),
            grouping_var  = all_of(grouping_var),
            labels_var    = all_of(labels_var),
            order_var     = all_of(order_var))
