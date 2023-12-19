@@ -51,6 +51,6 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/roseChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/errorDotsChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/NM/dotsChart.R")
-    
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/NM/dotsPlot.R")
   }
 }
