@@ -1,6 +1,7 @@
 NM_dotsChart <- function(
     data,             # Data frame with data
     target_var,       # Variable that will supply the values to plot
+    sd_var,           # Variable that will supply the sd to the plot
     grouping_var,     # Variable containing the grouping values. Plot will show a different color per group.
     labels_var,       # Variable containing the Y-Axis labels to show in the plot
     colors,           # Named vector with the colors to apply to lines
@@ -73,8 +74,8 @@ NM_dotsChart <- function(
       geom_errorbar(data    = data, 
                     aes(x   = reorder(labels_var, -order_var),
                         y   = target_var,
-                        ymin  = target_var - sd(target_var),
-                        ymax  = target_var + sd(target_var),
+                        ymin  = target_var - sd_var,
+                        ymax  = target_var + sd_var,
                         color = grouping_var),
                     width = 0.2,  # Set the width of the error bars
                     show.legend = F)
