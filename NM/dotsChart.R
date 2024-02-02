@@ -159,7 +159,7 @@ NM_dotsChart <- function(
           axis.title.y       = element_blank(),
           panel.grid.major.y = element_blank(),
           panel.background   = element_blank(), 
-          panel.ontop = T,
+          panel.ontop = F,
           axis.text.x = element_text(color = "#222221",
                                      hjust = 0,
                                      size  = fsize2),
