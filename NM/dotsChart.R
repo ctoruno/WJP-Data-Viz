@@ -80,7 +80,8 @@ NM_dotsChart <- function(
                         y   = target_var,
                         ymin  = target_var - qt(1- alpha/2, (n_obs - 1))*sd_var/sqrt(n_obs),
                         ymax  = target_var + qt(1- alpha/2, (n_obs - 1))*sd_var/sqrt(n_obs),
-                        color = grouping_var),
+                        color = grouping_var,
+                        alpha = 1),
                     width = 0.2,  # Set the width of the error bars
                     show.legend = F)
   }
@@ -159,7 +160,7 @@ NM_dotsChart <- function(
           axis.title.y       = element_blank(),
           panel.grid.major.y = element_blank(),
           panel.background   = element_blank(), 
-          panel.ontop = F,
+          panel.ontop = T,
           axis.text.x = element_text(color = "#222221",
                                      hjust = 0,
                                      size  = fsize2),
