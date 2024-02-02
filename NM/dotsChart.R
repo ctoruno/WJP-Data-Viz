@@ -154,7 +154,7 @@ NM_dotsChart <- function(
                        position = "right") +
     coord_flip() +
     WJP_theme() +
-    theme(plot.margin = unit(c(1, 1, 1, 1), "lines"),
+    theme(plot.margin = unit(c(0, 1, 0, 0), "lines"),
           axis.title.x       = element_blank(),
           axis.title.y       = element_blank(),
           panel.grid.major.y = element_blank(),
