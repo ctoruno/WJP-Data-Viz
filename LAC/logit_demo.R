@@ -17,7 +17,7 @@ logit_demo_panel <- function(mainData = data2plot,
     scale_y_continuous(limits = c(-0.50, 0.50),
                        breaks = seq(-0.50, 0.50, by = 0.25),
                        expand = expansion(mult = 0.025), position = "right",
-                       labels = c("-50", "-25", "0", "+25", "+50"))+
+                       labels = c("-50 p.p.", "-25 p.p.", "0 p.p.", "+25 p.p.", "+50 p.p."))+
     WJP_theme()+
     coord_flip() +
     theme(legend.position = "none",
