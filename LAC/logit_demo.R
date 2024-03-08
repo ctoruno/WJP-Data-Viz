@@ -14,7 +14,7 @@ logit_demo_panel <- function(mainData = data2plot,
     geom_point(aes(x = reorder(factor, -order_variable), y = AME), 
                size = 2, position = position_dodge(width = .7), color = "white") +
     labs(y = "Less likely                               More likely") +
-    scale_y_continuous(limits = c(-0.50, 0.50),
+    scale_y_continuous(limits = c(-0.55, 0.55),
                        breaks = seq(-0.50, 0.50, by = 0.25),
                        expand = expansion(mult = 0.025), position = "right",
                        labels = c("-50 p.p.", "-25 p.p.", "0 p.p.", "+25 p.p.", "+50 p.p."))+
