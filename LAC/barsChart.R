@@ -25,6 +25,7 @@ LAC_barsChart <- function(
     expand  = F,       # Do we need to give extra space for the labels?
     custom_order = F,  # Do we want a customize order in the graph labels?
     order_var = NULL,
+    order_stack,
     width = 0.9# Variable containing the custom order for the labels
 ){
   
@@ -35,7 +36,8 @@ LAC_barsChart <- function(
                   labels_var    = all_of(labels_var),
                   colors_var    = all_of(colors_var),
                   lab_pos       = all_of(lab_pos),
-                  order_var     = any_of(order_var))
+                  order_var     = any_of(order_var),
+                  order_stack   = all_of(order_stack))
   
   # Creating plot
   if(custom_order == F) {
@@ -51,7 +53,8 @@ LAC_barsChart <- function(
         geom_text(aes(y    = target_var + 10),
                   color    = "#4a4a49",
                   family   = "Lato Full",
-                  fontface = "bold")
+                  fontface = "bold", 
+                  size = 2.811678)
     } else {
       plt <- ggplot(data, 
                     aes(x     = grouping_var,
@@ -64,7 +67,8 @@ LAC_barsChart <- function(
         geom_text(aes(y    = lab_pos),
                   color    = "#ffffff",
                   family   = "Lato Full",
-                  fontface = "bold")
+                  fontface = "bold", 
+                  size = 2.811678)
     }
     
   } else {
@@ -80,12 +84,13 @@ LAC_barsChart <- function(
         geom_text(aes(y    = target_var + 10),
                   color    = "#4a4a49",
                   family   = "Lato Full",
-                  fontface = "bold")
+                  fontface = "bold", 
+                  size = 2.811678)
     } else {
       plt <- ggplot(data, 
                     aes(x     = reorder(grouping_var, order_var),
                         y     = target_var,
-                        label = labels_var,
+                        label = reorder(labels_var, order_stack),
                         fill  = colors_var)) +
         geom_bar(stat         = "identity",
                  position     = "stack", 
@@ -93,7 +98,8 @@ LAC_barsChart <- function(
         geom_text(aes(y    = lab_pos),
                   color    = "#ffffff",
                   family   = "Lato Full",
-                  fontface = "bold")
+                  fontface = "bold", 
+                  size = 2.811678)
     }
   }
   
