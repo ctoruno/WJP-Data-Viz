@@ -25,7 +25,6 @@ LAC_barsChart <- function(
     expand  = F,       # Do we need to give extra space for the labels?
     custom_order = F,  # Do we want a customize order in the graph labels?
     order_var = NULL,
-    order_stack,
     width = 0.9# Variable containing the custom order for the labels
 ){
   
@@ -90,7 +89,7 @@ LAC_barsChart <- function(
       plt <- ggplot(data, 
                     aes(x     = reorder(grouping_var, order_var),
                         y     = target_var,
-                        label = reorder(labels_var, order_stack),
+                        label = labels_var,
                         fill  = colors_var)) +
         geom_bar(stat         = "identity",
                  position     = "stack", 
