@@ -21,7 +21,8 @@ NM_divBars <- function(
     colors,           # Colors to apply to line
     labels_var,       # Variable containing the labels to show in the plot
     custom_order = F, # Do we want a customize order in the graph labels?
-    order_var = NULL  # Variable containing the custom order for the labels
+    order_var = NULL,  # Variable containing the custom order for the labels
+    extreme = F   # Do we have extreme values?
 ){
   
   # Renaming variables in the data frame to match the function naming
@@ -58,6 +59,11 @@ NM_divBars <- function(
                linetype   = "solid",
                size       = 0.5,
                color      = "#262424") + 
+    geom_text(aes(y = target_var/2),
+              size     = 2.811678,
+              color    = "white",
+              family   = "Lato Full",
+              fontface = "bold") +
     scale_fill_manual(values    = colors) +
     scale_y_continuous(limits   = c(-105,105),
                        breaks   = brs,
