@@ -54,6 +54,7 @@ loadVIZ <- function(set) {
   }
   if (set == "ENPOL")
   {
-    
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/lineChart.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/barsChart.R")
   }
 } 
