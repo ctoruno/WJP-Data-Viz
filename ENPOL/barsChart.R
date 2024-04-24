@@ -44,15 +44,17 @@ barsChart.fn <- function(
                 color    = "black",
                 family   = "Lato Full",
                 fontface = "bold", 
-                size = 8.435035)+
+                size = 3.514598)+
       labs(title    = title,
            subtitle = subtitle,  
            caption = note) +
-      scale_fill_manual(values = "#00a19b") +
+      scale_fill_manual(values = colors4plot) +
       scale_y_continuous(limits = c(0, 100),
                          breaks = seq(0,100,20),
                          labels = paste0(seq(0,100,20), "%"),
-                         position = "left")
+                         position = "right",
+                         ) +
+      coord_flip() 
     
   } else {
     
@@ -118,7 +120,7 @@ barsChart.fn <- function(
                 color    = "black",
                 family   = "Lato Full",
                 fontface = "bold", 
-                size = 8.435035)  +
+                size = 3.514598)  +
       geom_vline(xintercept = 2.5, linetype = "dashed", color = "black") +
       labs(title    = title,
            subtitle = subtitle, 
@@ -163,40 +165,40 @@ barsChart.fn <- function(
       axis.ticks         = element_blank(),
       axis.text.y        = element_markdown(family   = "Lato Full",
                                             face     = "bold",
-                                            size     = 7.029196*.pt,
+                                            size     = 3.514598*.pt,
                                             color    = "#524F4C",
                                             margin   = margin(0, 10, 0, 0),
                                             hjust = 0), 
       plot.caption = element_markdown(family   = "Lato Full",
                                       face     = "plain",
-                                      size     = 7.029196*.pt,
+                                      size     = 3.514598*.pt,
                                       color    = "#524F4C", 
                                       vjust    = 0, 
                                       hjust    = 0, 
                                       margin = margin(20, 0, 0, 0)),
       axis.text.x        = element_markdown(family   = "Lato Full",
                                             face     = "bold",
-                                            size     = 7.029196*.pt,
+                                            size     = 3.514598*.pt,
                                             color    = "#524F4C"),
       plot.title          = element_text(family   = "Lato Full",
                                          face     = "bold",
-                                         size     = 8.786495*.pt,
+                                         size     = 3.514598*.pt,
                                          color    = "black",
                                          margin   = margin(0, 0, 10, 0),
                                          hjust    = 0), 
       plot.subtitle      = element_text(family   = "Lato Full",
                                         face     = "plain",
-                                        size     = 8.786495*.pt,
+                                        size     = 3.514598*.pt,
                                         color    = "black",
                                         margin   = margin(2.5, 0, 20, 0),
                                         hjust    = 0),
       legend.text        =  element_markdown(family   = "Lato Full",
                                              face     = "plain",
-                                             size     = 7.029196*.pt,
+                                             size     = 3.514598*.pt,
                                              color    = "#524F4C"),
       legend.title       = element_markdown(family   = "Lato Full",
                                             face     = "plain",
-                                            size     = 7.029196*.pt,
+                                            size     = 3.514598*.pt,
                                             color    = "#524F4C")
       )
     
