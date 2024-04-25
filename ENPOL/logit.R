@@ -19,11 +19,11 @@ logit_demo_panel <- function(mainData = data2plot,
                size = point_size, position = position_dodge(width = .7), color = point_color) +
     geom_point(aes(x = reorder(factor, -order_variable), y = AME), 
                size = 2, position = position_dodge(width = .7), color = "white") +
-    labs(y = "Menos probable                               Más probable") +
+    labs(y = "Menos probable                                  Más probable") +
     scale_y_continuous(limits = c(-0.25, 0.25),
                        breaks = seq(-0.25, 0.25, by = 0.125),
                        expand = expansion(mult = 0.025), position = "right",
-                       labels = c("-25", "-12.5", "0", "+12.5", "+25"))+
+                       labels = c("-15", "-7.5", "0", "+7.5", "+15"))+
     WJP_theme()+
     coord_flip() +
     theme(legend.position = "none",
