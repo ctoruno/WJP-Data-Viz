@@ -11,11 +11,7 @@ barsChart.fn <- function(
     order_value                = "order_values",
     order_value_bars           = "legend_order_values",
     nbars                      = 6,
-    colors4plot                = colors4plot,
-    title,
-    subtitle,
-    legend,
-    note
+    colors4plot                = colors4plot
 ) {
   
   
@@ -102,7 +98,7 @@ barsChart.fn <- function(
     
     plot <- plot +
       geom_bar(stat = "identity",
-               show.legend = T,
+               show.legend = F,
                position = position_dodge(widt = 0.9))
     
     if(nbars > 1){
@@ -122,10 +118,6 @@ barsChart.fn <- function(
                 fontface = "bold", 
                 size = 3.514598)  +
       geom_vline(xintercept = 2.5, linetype = "dashed", color = "black") +
-      labs(title    = title,
-           subtitle = subtitle, 
-           fill = legend, 
-           caption = note) +
       scale_fill_manual(values = colors4plot, 
                         breaks = categories_grouping_var) 
     
