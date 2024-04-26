@@ -57,6 +57,7 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/lineChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/barsChart.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/index_hor-bars_shades.R")
-    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/logit.R")    
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/logit.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/logit_index_shades.R")
   }
 } 
