@@ -9,7 +9,8 @@ logit_demo_panel <- function(mainData = data2plot,
                              line_size  = 2,
                              point_color = "#003b8a",
                              point_size   = 4,
-                             shadow = F) {
+                             shadow = F,
+                             shadow_color) {
   
   if(shadow == F) {
     
@@ -23,10 +24,10 @@ logit_demo_panel <- function(mainData = data2plot,
       geom_point(aes(x = reorder(factor, -order_variable), y = AME), 
                  size = 2, position = position_dodge(width = .7), color = "white") +
       labs(y = "Menos probable                                  Más probable") +
-      scale_y_continuous(limits = c(-0.25, 0.25),
-                         breaks = seq(-0.25, 0.25, by = 0.125),
+      scale_y_continuous(limits = c(-0.18, 0.18),
+                         breaks = seq(-0.18, 0.18, by = 0.09),
                          expand = expansion(mult = 0.025), position = "right",
-                         labels = c("-15", "-7.5", "0", "+7.5", "+15"))+
+                         labels = c("-15 p.p", "-7.5 p.p", "0", "+7.5 p.p", "+15 p.p"))+
       WJP_theme()+
       coord_flip() +
       theme(legend.position = "none",
@@ -55,11 +56,11 @@ logit_demo_panel <- function(mainData = data2plot,
                  size = point_size, position = position_dodge(width = .7), color = point_color) +
       geom_point(aes(x = reorder(factor, -order_variable), y = AME), 
                  size = 2, position = position_dodge(width = .7), color = "white") +
-      labs(y = "Menos probable                               Más probable") +
-      scale_y_continuous(limits = c(-0.15, 0.15),
-                         breaks = seq(-0.12, 0.12, by = 0.06),
+      labs(y = "Menos probable                                  Más probable") +
+      scale_y_continuous(limits = c(-0.18, 0.18),
+                         breaks = seq(-0.18, 0.18, by = 0.09),
                          expand = expansion(mult = 0.025), position = "right",
-                         labels = c("-10 p.p.", "-5 p.p.", "0", "+5 p.p.", "+10 p.p.")) +
+                         labels = c("-15 p.p", "-7.5 p.p", "0", "+7.5 p.p", "+15 p.p")) +
       WJP_theme()+
       coord_flip() +
       theme(legend.position = "none",
