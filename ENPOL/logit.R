@@ -24,7 +24,7 @@ logit_demo_panel <- function(mainData = data2plot,
       geom_point(aes(x = reorder(factor, -order_variable), y = AME), 
                  size = 2, position = position_dodge(width = .7), color = "white") +
       labs(y = "Menos probable                                  Más probable") +
-      scale_y_continuous(limits = c(-0.18, 0.18),
+      scale_y_continuous(limits = c(-0.20, 0.20),
                          breaks = seq(-0.18, 0.18, by = 0.09),
                          expand = expansion(mult = 0.025), position = "right",
                          labels = c("-15 p.p", "-7.5 p.p", "0", "+7.5 p.p", "+15 p.p"))+
@@ -47,7 +47,7 @@ logit_demo_panel <- function(mainData = data2plot,
   } else {
     
     plot <- ggplot(mainData, aes(x = reorder(factor, -order_variable), y = AME)) +
-      annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = shadow, alpha = 0.1) +
+      annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = shadow_color, alpha = 0.1) +
       geom_hline(yintercept = 0, lty = 1, color = "#fa4d57", lwd = 1)  +
       geom_linerange(aes(x = reorder(factor, -order_variable),  ymin = lower, ymax = upper),
                      lwd = line_size, position = position_dodge(width = .7), 
@@ -57,7 +57,7 @@ logit_demo_panel <- function(mainData = data2plot,
       geom_point(aes(x = reorder(factor, -order_variable), y = AME), 
                  size = 2, position = position_dodge(width = .7), color = "white") +
       labs(y = "Menos probable                                  Más probable") +
-      scale_y_continuous(limits = c(-0.18, 0.18),
+      scale_y_continuous(limits = c(-0.20, 0.20),
                          breaks = seq(-0.18, 0.18, by = 0.09),
                          expand = expansion(mult = 0.025), position = "right",
                          labels = c("-15 p.p", "-7.5 p.p", "0", "+7.5 p.p", "+15 p.p")) +
