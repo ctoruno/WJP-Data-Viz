@@ -40,17 +40,22 @@ barsChart.fn <- function(
                 color    = "black",
                 family   = "Lato Full",
                 fontface = "bold", 
-                size = 3.514598)+
-      labs(title    = title,
-           subtitle = subtitle,  
-           caption = note) +
-      scale_fill_manual(values = colors4plot) +
-      scale_y_continuous(limits = c(0, 100),
-                         breaks = seq(0,100,20),
-                         labels = paste0(seq(0,100,20), "%"),
-                         position = "right",
-                         ) +
-      coord_flip() 
+                size = 3.514598) +
+      scale_fill_manual(values = colors4plot) 
+    
+    if(orientation == "vertical") {
+      plot <- plot +
+        scale_y_continuous(limits = c(0, 100),
+                           breaks = seq(0,100,20),
+                           labels = paste0(seq(0,100,20), "%"),
+                           position = "right") + coord_flip() 
+    } else {
+      plot <- plot +
+        scale_y_continuous(limits = c(0, 100),
+                           breaks = seq(0,100,20),
+                           labels = paste0(seq(0,100,20), "%"),
+                           position = "left") 
+    }
     
   } else {
     
