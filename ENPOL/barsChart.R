@@ -29,7 +29,7 @@ barsChart.fn <- function(
                    aes(
                      x     = reorder(labels, -order_var),
                      y     = value2plot,
-                     fill  = colors4plot,
+                     fill  = labels,
                      label = label_figures
                    )) +
       geom_bar(stat = "identity",
