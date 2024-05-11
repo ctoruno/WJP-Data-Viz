@@ -35,7 +35,7 @@ barsChartAxis.fn <- function(
       geom_bar(stat = "identity",
                show.legend = F,
                position = position_dodge(widt = 0.9)) +
-      geom_text(aes(y    = value2plot + 5), 
+      geom_text(aes(y    = value2plot + 2), 
                 position = position_dodge(widt = 0.9),
                 color    = "black",
                 family   = "Lato Full",
@@ -48,7 +48,7 @@ barsChartAxis.fn <- function(
         scale_y_continuous(limits = c(0, 100),
                            breaks = seq(0,100,20),
                            labels = paste0(seq(0,100,20), "%"),
-                           position = "right") + coord_flip() 
+                           position = "right") 
     } else {
       plot <- plot +
         scale_y_continuous(limits = c(0, 100),
@@ -116,7 +116,7 @@ barsChartAxis.fn <- function(
     }
     
     plot <- plot +
-      geom_text(aes(y    = value2plot + 5), 
+      geom_text(aes(y    = value2plot + 1), 
                 position = position_dodge(widt = 0.9),
                 color    = "black",
                 family   = "Lato Full",
@@ -129,11 +129,10 @@ barsChartAxis.fn <- function(
     if(orientation == "vertical") {
       
       plot <- plot +
-         scale_y_continuous(#limits = c(0, 100),
-                            #breaks = seq(0,100,20),
-                            #labels = paste0(seq(0,100,20), "%"),
-                            position = "right") +
-        coord_flip() 
+         scale_y_continuous(limits = c(0, 25),
+                            breaks = seq(0,25,5),
+                            labels = paste0(seq(0,25,5)),
+                            position = "left") 
       
     } else {
       
