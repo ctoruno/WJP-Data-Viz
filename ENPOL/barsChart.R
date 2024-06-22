@@ -39,12 +39,13 @@ barsChart.fn <- function(
     
     if(percentage == T) {
       
-      plot <- geom_text(aes(y    = value2plot + 5), 
-                position = position_dodge(widt = 0.9),
-                color    = "black",
-                family   = "Lato Full",
-                fontface = "bold", 
-                size = 3.514598) 
+      plot <- plot +
+        geom_text(aes(y    = value2plot + 5), 
+                  position = position_dodge(widt = 0.9),
+                  color    = "black",
+                  family   = "Lato Full",
+                  fontface = "bold", 
+                  size = 3.514598)
       
     } else {
       
@@ -58,15 +59,16 @@ barsChart.fn <- function(
       
     }
     
-    plot <- scale_fill_manual(values = colors4plot) 
+    plot <- plot + 
+      scale_fill_manual(values = colors4plot)
     
     if(orientation == "vertical") {
       plot <- plot +
         scale_y_continuous(limits = c(0, 100),
                            breaks = seq(0,100,20),
                            labels = paste0(seq(0,100,20), "%"),
-                           position = "right") 
-      + coord_flip() 
+                           position = "right") + 
+        coord_flip() 
       
     } else {
       plot <- plot +
@@ -136,12 +138,13 @@ barsChart.fn <- function(
     
     if(percentage == T) {
       
-      plot <- geom_text(aes(y    = value2plot + 5), 
-                        position = position_dodge(widt = 0.9),
-                        color    = "black",
-                        family   = "Lato Full",
-                        fontface = "bold", 
-                        size = 3.514598) 
+      plot <- plot +
+        geom_text(aes(y    = value2plot + 5), 
+                  position = position_dodge(widt = 0.9),
+                  color    = "black",
+                  family   = "Lato Full",
+                  fontface = "bold", 
+                  size = 3.514598) 
       
     } else {
       
