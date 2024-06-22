@@ -11,7 +11,8 @@ barsChart.fn <- function(
     order_value                = "order_values",
     order_value_bars           = "legend_order_values",
     nbars                      = 6,
-    colors4plot                = colors4plot
+    colors4plot                = colors4plot,
+    percentage                 = T
 ) {
   
   
@@ -34,21 +35,39 @@ barsChart.fn <- function(
                    )) +
       geom_bar(stat = "identity",
                show.legend = F,
-               position = position_dodge(widt = 0.9)) +
-      geom_text(aes(y    = value2plot + 5), 
+               position = position_dodge(widt = 0.9))
+    
+    if(percentage == T) {
+      
+      plot <- geom_text(aes(y    = value2plot + 5), 
                 position = position_dodge(widt = 0.9),
                 color    = "black",
                 family   = "Lato Full",
                 fontface = "bold", 
-                size = 3.514598) +
-      scale_fill_manual(values = colors4plot) 
+                size = 3.514598) 
+      
+    } else {
+      
+      plot <- plot +
+        geom_text(aes(y    = value2plot + 1), 
+                  position = position_dodge(widt = 0.9),
+                  color    = "black",
+                  family   = "Lato Full",
+                  fontface = "bold", 
+                  size = 3.514598)
+      
+    }
+    
+    plot <- scale_fill_manual(values = colors4plot) 
     
     if(orientation == "vertical") {
       plot <- plot +
         scale_y_continuous(limits = c(0, 100),
                            breaks = seq(0,100,20),
                            labels = paste0(seq(0,100,20), "%"),
-                           position = "right") + coord_flip() 
+                           position = "right") 
+      + coord_flip() 
+      
     } else {
       plot <- plot +
         scale_y_continuous(limits = c(0, 100),
@@ -115,14 +134,28 @@ barsChart.fn <- function(
       plot <- plot
     }
     
+    if(percentage == T) {
+      
+      plot <- geom_text(aes(y    = value2plot + 5), 
+                        position = position_dodge(widt = 0.9),
+                        color    = "black",
+                        family   = "Lato Full",
+                        fontface = "bold", 
+                        size = 3.514598) 
+      
+    } else {
+      
+      plot <- plot +
+        geom_text(aes(y    = value2plot + 1), 
+                  position = position_dodge(widt = 0.9),
+                  color    = "black",
+                  family   = "Lato Full",
+                  fontface = "bold", 
+                  size = 3.514598)
+      
+    }
+    
     plot <- plot +
-      geom_text(aes(y    = value2plot + 5), 
-                position = position_dodge(widt = 0.9),
-                color    = "black",
-                family   = "Lato Full",
-                fontface = "bold", 
-                size = 3.514598)  +
-      geom_vline(xintercept = 2.5, linetype = "dashed", color = "black") +
       scale_fill_manual(values = colors4plot, 
                         breaks = categories_grouping_var) 
     
@@ -134,14 +167,29 @@ barsChart.fn <- function(
                            labels = paste0(seq(0,100,20), "%"),
                            position = "right") +
         coord_flip() 
+      
         
     } else {
       
-      plot <- plot +
-        scale_y_continuous(limits = c(0, 100),
-                           breaks = seq(0,100,20),
-                           labels = paste0(seq(0,100,20), "%"),
-                           position = "left") 
+      if(percentage == T) {
+        
+        plot <- plot +
+          scale_y_continuous(limits = c(0, 100),
+                             breaks = seq(0,100,20),
+                             labels = paste0(seq(0,100,20), "%"),
+                             position = "left")
+        
+        
+      } else {
+        
+
+        plot <- plot + 
+          scale_y_continuous(limits = c(0, 25),
+                             breaks = seq(0,25,5),
+                             labels = paste0(seq(0,25,5)),
+                             position = "left") 
+        
+      }
       
     }
     
