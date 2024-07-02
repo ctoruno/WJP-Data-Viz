@@ -26,7 +26,7 @@ BarSimpleChartViz <- function(data = data2plot,
     labs(y = "% of respondents") +
     xlab("Porcentaje de criterios cumplidos") +
     ylab("Porcentaje de personas sentenciadas") +
-    scale_y_continuous() +
+    scale_y_continuous(labels = function(y) paste0(y, "%")) +
     scale_x_discrete(labels = x_labels) +  # Añadido para cambiar etiquetas del eje X
     WJP_theme() +
     theme(panel.grid.major.y = element_blank(),
