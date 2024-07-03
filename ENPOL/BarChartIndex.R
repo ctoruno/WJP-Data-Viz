@@ -1,3 +1,24 @@
+index_setUp.fn <- function(data = master_data.df,
+                           main_var){
+  
+  data_subset.df <- data %>%
+    rename(main_var = all_of(main_var)) %>%
+    group_by(main_var) %>%
+    summarise(counter = n()) %>%
+    drop_na %>%
+    mutate(
+      value2plot = counter / sum(counter),
+      value2plot = value2plot*100,
+      figure = paste0(round(value2plot,0), "%"),
+      order_var = rank(main_var),
+      labelx =paste0(round(main_var*100,0), "%")
+    )
+  
+}
+
+
+
+
 BarSimpleChartViz <- function(data = data2plot, 
                               x_var = main_var, 
                               y_var = value2plot, 
@@ -40,20 +61,3 @@ BarSimpleChartViz <- function(data = data2plot,
   return(plt)
 }
 
-index_setUp.fn <- function(data = master_data.df,
-                           main_var){
-  
-  data_subset.df <- data %>%
-    rename(main_var = all_of(main_var)) %>%
-    group_by(main_var) %>%
-    summarise(counter = n()) %>%
-    drop_na %>%
-    mutate(
-      value2plot = counter / sum(counter),
-      value2plot = value2plot*100,
-      figure = paste0(round(value2plot,0), "%"),
-      order_var = rank(main_var),
-      labelx =paste0(round(main_var*100,0), "%")
-    )
-  
-}
