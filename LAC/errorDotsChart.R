@@ -13,8 +13,7 @@ errorDotsChart <- function(data2plot = data2plot,
   data2plot <- data2plot %>%
     rename(group    = all_of(group),
            labels   = all_of(labels),
-           category = all_of(category),
-           figures  = all_of(figure)
+           category = all_of(category)
            )
   #values = all_of(values),
   #lower = all_of(lower),
@@ -77,7 +76,7 @@ errorDotsChart <- function(data2plot = data2plot,
                   linewidth = 1) +
     geom_text_repel(mapping = aes(y     = {{values}},
                                   x     = labels,
-                                  label = figure),
+                                  label = figures),
                     family      = "Lato Full",
                     fontface    = "bold",
                     size        = 3.514598,
