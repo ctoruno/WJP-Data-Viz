@@ -61,7 +61,7 @@ loadVIZ <- function(set) {
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/logit.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/barsChartAxis.R")
     source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/BarChartIndex.R")
-    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/ENPOL/errorDotsChart.R")
+    source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/main/LAC/errorDotsChart.R")
     
     
   }
