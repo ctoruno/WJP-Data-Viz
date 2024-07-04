@@ -56,7 +56,7 @@ errorDotsChart <- function(data2plot = data2plot,
                                  "white"  = "#FFFFFF"),
                       na.value = NULL) +
     geom_point(data = data2plot,
-               size = 3,
+               size = 2.5,
                aes(x      = labels,
                    y      = {{values}},
                    color  = group)
@@ -70,21 +70,22 @@ errorDotsChart <- function(data2plot = data2plot,
                   width = 0.5, 
                   alpha = 0.5, 
                   linewidth = 1) +
-    geom_text_repel(mapping = aes(y     = {{values}},
-                                  x     = labels,
-                                  label = {{figures}}),
-                    family      = "Lato Full",
-                    fontface    = "bold",
-                    size        = 3.514598,
-                    show.legend = F,
-                    
-                    # Additional options from ggrepel package:
-                    min.segment.length = 1000,
-                    seed               = 42,
-                    box.padding        = 0.5,
-                    direction          = "y",
-                    force              = 5,
-                    force_pull         = 1) +
+    # geom_text_repel(data = data2plot,
+    #                 mapping = aes(y     = {{values}},
+    #                               x     = labels,
+    #                               label = {{figures}}),
+    #                 family      = "Lato Full",
+    #                 fontface    = "bold",
+    #                 size        =  2.811678,
+    #                 show.legend = F,
+    #                 
+    #                 # Additional options from ggrepel package:
+    #                 min.segment.length = 1000,
+    #                 seed               = 42,
+    #                 box.padding        = 0.5,
+    #                 direction          = "y",
+    #                 force              = 5,
+    #                 force_pull         = 1) +
     scale_color_manual(values = colors4plot) + 
     scale_y_continuous(limits   = c(0,1),
                        breaks   = seq(0,1, 0.25),
@@ -138,7 +139,7 @@ errorDotsChart <- function(data2plot = data2plot,
                                    "white"  = "#FFFFFF"),
                         na.value = NULL) +
       geom_point(data = data2plot,
-                 size = 3,
+                 size = 2.5,
                  aes(x      = reorder(labels, -{{order_values}}),
                      y      = {{values}},
                      color  = group)
@@ -152,21 +153,22 @@ errorDotsChart <- function(data2plot = data2plot,
                     width = 0.5, 
                     alpha = 0.5, 
                     linewidth = 1) +
-      geom_text_repel(mapping = aes(y     = {{values}},
-                                    x     = labels,
-                                    label = {{figures}}),
-                      family      = "Lato Full",
-                      fontface    = "bold",
-                      size        = 3.514598,
-                      show.legend = F,
-                      
-                      # Additional options from ggrepel package:
-                      min.segment.length = 1000,
-                      seed               = 42,
-                      box.padding        = 0.5,
-                      direction          = "y",
-                      force              = 5,
-                      force_pull         = 1) +
+      # geom_text_repel(data = data2plot,
+      #                 mapping = aes(y     = {{values}},
+      #                               x     = labels,
+      #                               label = {{figures}}),
+      #                 family      = "Lato Full",
+      #                 fontface    = "bold",
+      #                 size        =  2.811678,
+      #                 show.legend = F,
+      #                 
+      #                 # Additional options from ggrepel package:
+      #                 min.segment.length = 1000,
+      #                 seed               = 42,
+      #                 box.padding        = 0.5,
+      #                 direction          = "y",
+      #                 force              = 5,
+      #                 force_pull         = 1) +
       scale_color_manual(values = colors4plot) + 
       scale_y_continuous(limits   = c(0,1),
                          breaks   = seq(0,1, 0.25),
