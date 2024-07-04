@@ -38,11 +38,7 @@ errorDotsChart <- function(data2plot = data2plot,
   
   if(custom_order == T) {
     
-  a <- ggplot(data2plot,
-              aes(
-                label = figures
-                )
-              ) +
+  a <- ggplot() +
     geom_blank(data       = data2plot,
                aes(x      = labels,
                    y      = {{values}},
@@ -76,7 +72,7 @@ errorDotsChart <- function(data2plot = data2plot,
                   linewidth = 1) +
     geom_text_repel(mapping = aes(y     = {{values}},
                                   x     = labels,
-                                  label = figures),
+                                  label = {{figures}}),
                     family      = "Lato Full",
                     fontface    = "bold",
                     size        = 3.514598,
@@ -156,6 +152,21 @@ errorDotsChart <- function(data2plot = data2plot,
                     width = 0.5, 
                     alpha = 0.5, 
                     linewidth = 1) +
+      geom_text_repel(mapping = aes(y     = {{values}},
+                                    x     = labels,
+                                    label = {{figures}}),
+                      family      = "Lato Full",
+                      fontface    = "bold",
+                      size        = 3.514598,
+                      show.legend = F,
+                      
+                      # Additional options from ggrepel package:
+                      min.segment.length = 1000,
+                      seed               = 42,
+                      box.padding        = 0.5,
+                      direction          = "y",
+                      force              = 5,
+                      force_pull         = 1) +
       scale_color_manual(values = colors4plot) + 
       scale_y_continuous(limits   = c(0,1),
                          breaks   = seq(0,1, 0.25),
