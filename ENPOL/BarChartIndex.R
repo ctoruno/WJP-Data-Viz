@@ -45,7 +45,7 @@ BarSimpleChartViz <- function(data = data2plot,
               family   = "Lato Full",
               fontface = "bold") +
     labs(y = "% of respondents") +
-    xlab("Porcentaje de criterios cumplidos") +
+    xlab("% de criterios cumplidos") +
     ylab("% personas sentenciadas") +
     scale_y_continuous(labels = function(y) paste0(y, "%")) +
     scale_x_discrete(labels = x_labels) +  # Añadido para cambiar etiquetas del eje X
